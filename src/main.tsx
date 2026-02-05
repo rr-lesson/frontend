@@ -10,7 +10,7 @@ import reportWebVitals from "./reportWebVitals.ts";
 import "./styles.css";
 
 client.setConfig({
-  baseUrl: "http://localhost:8080",
+  baseUrl: import.meta.env.VITE_API_BASE_URL,
 });
 
 // Create a new router instance
