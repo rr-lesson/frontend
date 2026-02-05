@@ -12,7 +12,7 @@ export const Route = createFileRoute(
 function RouteComponent() {
   const { subjectId } = Route.useParams();
 
-  const { data: dataLessons, isLoading: isLoadingLessons } = useQuery({
+  const { data: dataLessons } = useQuery({
     ...getAllLessonsOptions({
       query: { subjectId: Number(subjectId) },
     }),

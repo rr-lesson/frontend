@@ -27,10 +27,10 @@ export const Route = createFileRoute("/_authenticated/")({
 function RouteComponent() {
   const [currentClass, setCurrentClass] = useAtom(currentClassAtom);
 
-  const { data: dataClasses, isLoading: isLoadingClasses } = useQuery({
+  const { data: dataClasses } = useQuery({
     ...getAllClassesOptions(),
   });
-  const { data: dataSubjects, isLoading: isLoadingSubjects } = useQuery({
+  const { data: dataSubjects } = useQuery({
     ...getAllSubjectsOptions({
       query: { classId: currentClass || undefined },
     }),

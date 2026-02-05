@@ -15,18 +15,19 @@ export const Route = createFileRoute("/_authenticated/admin/video/$videoId/")({
 function RouteComponent() {
   const { videoId } = Route.useParams();
 
-  const { data: dataVideo, isLoading: isLoadingVideo } = useQuery({
+  const { data: dataVideo } = useQuery({
     ...getVideoWithDetailOptions({ path: { videoId: Number(videoId) } }),
     enabled: videoId !== undefined,
   });
 
   const videoPath = useMemo(() => {
     if (dataVideo) {
-      return (
-        "http://rizalanggoro:8080/api/v1/hls/videos/" +
-        dataVideo.video.video.file_path +
-        "/master.m3u8"
-      );
+      return [
+        import.meta.env.VITE_API_BASE_URL,
+        "api/v1/hls/videos",
+        dataVideo.video.video.file_path,
+        "master.m3u8",
+      ].join("/");
     }
   }, [dataVideo]);
 

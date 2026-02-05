@@ -23,7 +23,7 @@ function RouteComponent() {
 
   const [resolution, setResolution] = useState(0);
 
-  const { data: dataVideo, isLoading: isLoadingVideo } = useQuery({
+  const { data: dataVideo } = useQuery({
     ...getVideoWithDetailOptions({
       path: { videoId: Number(videoId) },
     }),
@@ -32,16 +32,18 @@ function RouteComponent() {
 
   const videoSrc = useMemo(() => {
     if (dataVideo) {
-      return (
-        "http://rizalanggoro:8080/api/v1/hls/videos/" +
-        dataVideo.video.video.file_path +
-        "/master.m3u8"
-      );
+      return [
+        import.meta.env.VITE_API_BASE_URL,
+        "api/v1/hls/videos",
+        dataVideo.video.video.file_path,
+        "master.m3u8",
+      ].join("/");
     }
   }, [dataVideo]);
 
   return (
     <div className="py-6">
+      <p>video src: {videoSrc}</p>
       <div className="aspect-video w-full">
         <ReactPlayer
           src={videoSrc}

@@ -31,17 +31,6 @@ const formSchema = z.object({
     .min(1, "Kelas tidak boleh kosong!"),
 });
 
-type Framework = {
-  label: string;
-  value: string;
-};
-
-const frameworks: Framework[] = [
-  { label: "Next.js", value: "next" },
-  { label: "SvelteKit", value: "sveltekit" },
-  { label: "Nuxt", value: "nuxt" },
-];
-
 function RouteComponent() {
   const { data: dataClassess } = useQuery({
     ...getAllClassesOptions(),

@@ -20,7 +20,7 @@ export const Route = createFileRoute(
 function RouteComponent() {
   const { subjectId, lessonId } = Route.useParams();
 
-  const { data: dataVideos, isLoading: isLoadingVideos } = useQuery({
+  const { data: dataVideos } = useQuery({
     ...getAllVideosOptions({
       query: { lessonId: Number(lessonId) },
     }),
