@@ -24,7 +24,7 @@ function RouteComponent() {
     if (dataVideo) {
       return [
         import.meta.env.VITE_API_BASE_URL,
-        "api/v1/hls/videos",
+        "api/v1/hls2/videos",
         dataVideo.video.video.file_path,
         "master.m3u8",
       ].join("/");
