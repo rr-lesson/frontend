@@ -14,11 +14,36 @@ export const Route = createFileRoute("/_authenticated/admin/video/$videoId/")({
 
 function RouteComponent() {
   const { videoId } = Route.useParams();
+  // const playerRef = useRef<HTMLVideoElement | null>(null);
 
   const { data: dataVideo } = useQuery({
     ...getVideoWithDetailOptions({ path: { videoId: Number(videoId) } }),
     enabled: videoId !== undefined,
   });
+
+  // useEffect(() => {
+  //   console.log({ player: playerRef.current });
+  //   if (playerRef.current !== null) {
+  //     console.log({ test: playerRef.current.value });
+  //   }
+  //   // if (playerRef.current !== null) {
+  //   //   console.log(
+  //   //     "player ready",
+  //   //     (playerRef.current as any).getInternalPlayer("hls"),
+  //   //   );
+  //   // }
+  // }, [playerRef]);
+
+  // const changeQuality = (index: number) => {
+  //   // Sekarang TypeScript tidak akan komplain
+  //   if (playerRef.current !== null) {
+  //     console.log("change quality to index:", index);
+  //     const hlsInstance = (playerRef.current as any).getInternalPlayer("hls");
+  //     if (hlsInstance) {
+  //       hlsInstance.currentLevel = index;
+  //     }
+  //   }
+  // };
 
   const videoPath = useMemo(() => {
     if (dataVideo) {
@@ -38,6 +63,7 @@ function RouteComponent() {
 
       <div className="aspect-video w-full">
         <ReactPlayer
+          // ref={playerRef}
           src={videoPath}
           style={{
             width: "100%",
@@ -49,8 +75,16 @@ function RouteComponent() {
               startLevel: 2,
             },
           }}
+          onReady={() => console.log("on ready")}
+          onLoad={() => console.log("on load")}
         />
       </div>
+
+      {/* <div>
+        <Button onClick={() => changeQuality(0)}>0</Button>
+        <Button onClick={() => changeQuality(1)}>1</Button>
+        <Button onClick={() => changeQuality(2)}>2</Button>
+      </div> */}
     </div>
   );
 }
