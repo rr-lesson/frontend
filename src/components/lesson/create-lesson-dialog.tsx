@@ -58,6 +58,11 @@ export const CreateLessonDialog = ({
 }: CreateLessonDialogProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      classId: 0,
+      subjectId: 0,
+      title: "",
+    },
   });
 
   const { data: dataClassess, isLoading: isLoadingClasses } = useQuery({
@@ -79,8 +84,7 @@ export const CreateLessonDialog = ({
 
   const onSubmit = (data: z.infer<typeof formSchema>) =>
     mutate({
-      path: { classId: data.classId, subjectId: data.subjectId },
-      body: { title: data.title },
+      body: { subject_id: data.subjectId, title: data.title },
     });
 
   return (

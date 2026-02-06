@@ -20,6 +20,7 @@ export type CreateClassRes = {
 };
 
 export type CreateLessonReq = {
+    subject_id: number;
     title: string;
 };
 
@@ -39,6 +40,7 @@ export type CreateSubjectRes = {
 export type CreateVideoReq = {
     description: string;
     file_path: string;
+    lesson_id: number;
     title: string;
 };
 
@@ -252,16 +254,7 @@ export type CreateLessonData = {
      * body
      */
     body: CreateLessonReq;
-    path: {
-        /**
-         * classId
-         */
-        classId: number;
-        /**
-         * subjectId
-         */
-        subjectId: number;
-    };
+    path?: never;
     query?: never;
     url: '/api/v1/lessons';
 };

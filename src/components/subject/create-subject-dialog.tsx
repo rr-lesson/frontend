@@ -54,6 +54,10 @@ export const CreateSubjectDialog = ({
 }: CreateSubjectDialogProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      classId: 0,
+      name: "",
+    },
   });
 
   const { data: dataClassess, isLoading: isLoadingClasses } = useQuery({
@@ -93,8 +97,11 @@ export const CreateSubjectDialog = ({
                     itemToStringValue={(item: Class) => String(item.id)}
                     itemToStringLabel={(item: Class) => item.name}
                     value={
-                      dataClassess &&
-                      dataClassess.classes.find((it) => it.id === field.value)
+                      (dataClassess &&
+                        dataClassess.classes.find(
+                          (it) => it.id === field.value,
+                        )) ||
+                      null
                     }
                     onValueChange={(e) => {
                       if (e != null) field.onChange(e.id);

@@ -89,6 +89,7 @@ function RouteComponent() {
   const onSubmit = (data: z.infer<typeof formSchema>) =>
     mutateCreate({
       body: {
+        lesson_id: data.lessonId,
         file_path: data.path,
         title: data.title,
         description: data.description || "",

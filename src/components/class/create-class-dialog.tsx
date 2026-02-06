@@ -38,6 +38,9 @@ export const CreateClassDialog = ({
 }: CreateClassDialogProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+    },
   });
 
   const { mutate, isPending } = useMutation({
