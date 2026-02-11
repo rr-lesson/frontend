@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { createClass, createLesson, createSubject, createVideo, getAllClasses, getAllLessons, getAllLessonsBySubjectId, getAllLessonWithClassSubject, getAllSubjectDetails, getAllSubjects, getAllVideos, getAllVideosByLessonId, getAllVideosWithDetail, getVideoWithDetail, type Options } from '../sdk.gen';
-import type { CreateClassData, CreateClassResponse, CreateLessonData, CreateLessonResponse, CreateSubjectData, CreateSubjectResponse, CreateVideoData, CreateVideoResponse, GetAllClassesData, GetAllClassesResponse, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponse, GetAllLessonsData, GetAllLessonsResponse, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponse, GetAllSubjectDetailsData, GetAllSubjectDetailsResponse, GetAllSubjectsData, GetAllSubjectsResponse, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponse, GetAllVideosData, GetAllVideosResponse, GetAllVideosWithDetailData, GetAllVideosWithDetailResponse, GetVideoWithDetailData, GetVideoWithDetailResponse } from '../types.gen';
+import { createClass, createLesson, createQuestion, createSubject, createVideo, getAllClasses, getAllLessons, getAllLessonsBySubjectId, getAllLessonWithClassSubject, getAllQuestions, getAllSubjectDetails, getAllSubjects, getAllVideos, getAllVideosByLessonId, getAllVideosWithDetail, getVideoWithDetail, type Options } from '../sdk.gen';
+import type { CreateClassData, CreateClassResponse, CreateLessonData, CreateLessonResponse, CreateQuestionData, CreateQuestionResponse, CreateSubjectData, CreateSubjectResponse, CreateVideoData, CreateVideoResponse, GetAllClassesData, GetAllClassesResponse, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponse, GetAllLessonsData, GetAllLessonsResponse, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponse, GetAllQuestionsData, GetAllQuestionsResponse, GetAllSubjectDetailsData, GetAllSubjectDetailsResponse, GetAllSubjectsData, GetAllSubjectsResponse, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponse, GetAllVideosData, GetAllVideosResponse, GetAllVideosWithDetailData, GetAllVideosWithDetailResponse, GetVideoWithDetailData, GetVideoWithDetailResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -135,6 +135,35 @@ export const createLessonMutation = (options?: Partial<Options<CreateLessonData>
     const mutationOptions: UseMutationOptions<CreateLessonResponse, DefaultError, Options<CreateLessonData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await createLesson({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const getAllQuestionsQueryKey = (options?: Options<GetAllQuestionsData>) => createQueryKey('getAllQuestions', options);
+
+export const getAllQuestionsOptions = (options?: Options<GetAllQuestionsData>) => queryOptions<GetAllQuestionsResponse, DefaultError, GetAllQuestionsResponse, ReturnType<typeof getAllQuestionsQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getAllQuestions({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getAllQuestionsQueryKey(options)
+});
+
+export const createQuestionMutation = (options?: Partial<Options<CreateQuestionData>>): UseMutationOptions<CreateQuestionResponse, DefaultError, Options<CreateQuestionData>> => {
+    const mutationOptions: UseMutationOptions<CreateQuestionResponse, DefaultError, Options<CreateQuestionData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await createQuestion({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

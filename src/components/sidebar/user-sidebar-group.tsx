@@ -6,7 +6,12 @@ import { currentClassAtom } from "@/stores";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useAtomValue } from "jotai";
-import { GraduationCapIcon, HomeIcon, LibraryBigIcon } from "lucide-react";
+import {
+  GraduationCapIcon,
+  HomeIcon,
+  LibraryBigIcon,
+  MessageCircleQuestionIcon,
+} from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -48,6 +53,16 @@ export const UserSidebarGroup = () => {
                 <Link to="/">
                   <HomeIcon />
                   Halaman Utama
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+
+            {/* questions and answer */}
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link to="/questions">
+                  <MessageCircleQuestionIcon />
+                  Ruang Tanya
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

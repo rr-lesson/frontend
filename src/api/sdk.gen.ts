@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { CreateClassData, CreateClassResponses, CreateLessonData, CreateLessonResponses, CreateSubjectData, CreateSubjectResponses, CreateVideoData, CreateVideoResponses, GetAllClassesData, GetAllClassesResponses, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponses, GetAllLessonsData, GetAllLessonsResponses, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponses, GetAllSubjectDetailsData, GetAllSubjectDetailsResponses, GetAllSubjectsData, GetAllSubjectsResponses, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponses, GetAllVideosData, GetAllVideosResponses, GetAllVideosWithDetailData, GetAllVideosWithDetailResponses, GetVideoWithDetailData, GetVideoWithDetailResponses } from './types.gen';
+import type { CreateClassData, CreateClassResponses, CreateLessonData, CreateLessonResponses, CreateQuestionData, CreateQuestionResponses, CreateSubjectData, CreateSubjectResponses, CreateVideoData, CreateVideoResponses, GetAllClassesData, GetAllClassesResponses, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponses, GetAllLessonsData, GetAllLessonsResponses, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponses, GetAllQuestionsData, GetAllQuestionsResponses, GetAllSubjectDetailsData, GetAllSubjectDetailsResponses, GetAllSubjectsData, GetAllSubjectsResponses, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponses, GetAllVideosData, GetAllVideosResponses, GetAllVideosWithDetailData, GetAllVideosWithDetailResponses, GetVideoWithDetailData, GetVideoWithDetailResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -42,6 +42,17 @@ export const getAllLessons = <ThrowOnError extends boolean = false>(options?: Op
 
 export const createLesson = <ThrowOnError extends boolean = false>(options: Options<CreateLessonData, ThrowOnError>) => (options.client ?? client).post<CreateLessonResponses, unknown, ThrowOnError>({
     url: '/api/v1/lessons',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const getAllQuestions = <ThrowOnError extends boolean = false>(options?: Options<GetAllQuestionsData, ThrowOnError>) => (options?.client ?? client).get<GetAllQuestionsResponses, unknown, ThrowOnError>({ url: '/api/v1/questions', ...options });
+
+export const createQuestion = <ThrowOnError extends boolean = false>(options: Options<CreateQuestionData, ThrowOnError>) => (options.client ?? client).post<CreateQuestionResponses, unknown, ThrowOnError>({
+    url: '/api/v1/questions',
     ...options,
     headers: {
         'Content-Type': 'application/json',

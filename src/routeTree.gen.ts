@@ -13,7 +13,9 @@ import { Route as TestRouteImport } from './routes/test'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as UnauthenticatedAuthRouteImport } from './routes/_unauthenticated/auth'
+import { Route as AuthenticatedQuestionsIndexRouteImport } from './routes/_authenticated/questions/index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedQuestionsCreateIndexRouteImport } from './routes/_authenticated/questions/create/index'
 import { Route as AuthenticatedAdminVideoIndexRouteImport } from './routes/_authenticated/admin/video/index'
 import { Route as AuthenticatedAdminDataIndexRouteImport } from './routes/_authenticated/admin/data/index'
 import { Route as AuthenticatedAdminVideoCreateRouteImport } from './routes/_authenticated/admin/video/create'
@@ -41,11 +43,23 @@ const UnauthenticatedAuthRoute = UnauthenticatedAuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedQuestionsIndexRoute =
+  AuthenticatedQuestionsIndexRouteImport.update({
+    id: '/questions/',
+    path: '/questions/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedQuestionsCreateIndexRoute =
+  AuthenticatedQuestionsCreateIndexRouteImport.update({
+    id: '/questions/create/',
+    path: '/questions/create/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedAdminVideoIndexRoute =
   AuthenticatedAdminVideoIndexRouteImport.update({
     id: '/admin/video/',
@@ -96,9 +110,11 @@ export interface FileRoutesByFullPath {
   '/test': typeof TestRoute
   '/auth': typeof UnauthenticatedAuthRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/questions/': typeof AuthenticatedQuestionsIndexRoute
   '/admin/video/create': typeof AuthenticatedAdminVideoCreateRoute
   '/admin/data/': typeof AuthenticatedAdminDataIndexRoute
   '/admin/video/': typeof AuthenticatedAdminVideoIndexRoute
+  '/questions/create/': typeof AuthenticatedQuestionsCreateIndexRoute
   '/admin/video/$videoId/': typeof AuthenticatedAdminVideoVideoIdIndexRoute
   '/subjects/$subjectId/lessons/': typeof AuthenticatedSubjectsSubjectIdLessonsIndexRoute
   '/subjects/$subjectId/lessons/$lessonId/videos/': typeof AuthenticatedSubjectsSubjectIdLessonsLessonIdVideosIndexRoute
@@ -109,9 +125,11 @@ export interface FileRoutesByTo {
   '/auth': typeof UnauthenticatedAuthRoute
   '/': typeof AuthenticatedIndexRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/questions': typeof AuthenticatedQuestionsIndexRoute
   '/admin/video/create': typeof AuthenticatedAdminVideoCreateRoute
   '/admin/data': typeof AuthenticatedAdminDataIndexRoute
   '/admin/video': typeof AuthenticatedAdminVideoIndexRoute
+  '/questions/create': typeof AuthenticatedQuestionsCreateIndexRoute
   '/admin/video/$videoId': typeof AuthenticatedAdminVideoVideoIdIndexRoute
   '/subjects/$subjectId/lessons': typeof AuthenticatedSubjectsSubjectIdLessonsIndexRoute
   '/subjects/$subjectId/lessons/$lessonId/videos': typeof AuthenticatedSubjectsSubjectIdLessonsLessonIdVideosIndexRoute
@@ -124,9 +142,11 @@ export interface FileRoutesById {
   '/_unauthenticated/auth': typeof UnauthenticatedAuthRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/questions/': typeof AuthenticatedQuestionsIndexRoute
   '/_authenticated/admin/video/create': typeof AuthenticatedAdminVideoCreateRoute
   '/_authenticated/admin/data/': typeof AuthenticatedAdminDataIndexRoute
   '/_authenticated/admin/video/': typeof AuthenticatedAdminVideoIndexRoute
+  '/_authenticated/questions/create/': typeof AuthenticatedQuestionsCreateIndexRoute
   '/_authenticated/admin/video/$videoId/': typeof AuthenticatedAdminVideoVideoIdIndexRoute
   '/_authenticated/subjects/$subjectId/lessons/': typeof AuthenticatedSubjectsSubjectIdLessonsIndexRoute
   '/_authenticated/subjects/$subjectId/lessons/$lessonId/videos/': typeof AuthenticatedSubjectsSubjectIdLessonsLessonIdVideosIndexRoute
@@ -139,9 +159,11 @@ export interface FileRouteTypes {
     | '/test'
     | '/auth'
     | '/admin/'
+    | '/questions/'
     | '/admin/video/create'
     | '/admin/data/'
     | '/admin/video/'
+    | '/questions/create/'
     | '/admin/video/$videoId/'
     | '/subjects/$subjectId/lessons/'
     | '/subjects/$subjectId/lessons/$lessonId/videos/'
@@ -152,9 +174,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/'
     | '/admin'
+    | '/questions'
     | '/admin/video/create'
     | '/admin/data'
     | '/admin/video'
+    | '/questions/create'
     | '/admin/video/$videoId'
     | '/subjects/$subjectId/lessons'
     | '/subjects/$subjectId/lessons/$lessonId/videos'
@@ -166,9 +190,11 @@ export interface FileRouteTypes {
     | '/_unauthenticated/auth'
     | '/_authenticated/'
     | '/_authenticated/admin/'
+    | '/_authenticated/questions/'
     | '/_authenticated/admin/video/create'
     | '/_authenticated/admin/data/'
     | '/_authenticated/admin/video/'
+    | '/_authenticated/questions/create/'
     | '/_authenticated/admin/video/$videoId/'
     | '/_authenticated/subjects/$subjectId/lessons/'
     | '/_authenticated/subjects/$subjectId/lessons/$lessonId/videos/'
@@ -211,11 +237,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnauthenticatedAuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/questions/': {
+      id: '/_authenticated/questions/'
+      path: '/questions'
+      fullPath: '/questions/'
+      preLoaderRoute: typeof AuthenticatedQuestionsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/questions/create/': {
+      id: '/_authenticated/questions/create/'
+      path: '/questions/create'
+      fullPath: '/questions/create/'
+      preLoaderRoute: typeof AuthenticatedQuestionsCreateIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/admin/video/': {
@@ -273,9 +313,11 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteChildren {
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedQuestionsIndexRoute: typeof AuthenticatedQuestionsIndexRoute
   AuthenticatedAdminVideoCreateRoute: typeof AuthenticatedAdminVideoCreateRoute
   AuthenticatedAdminDataIndexRoute: typeof AuthenticatedAdminDataIndexRoute
   AuthenticatedAdminVideoIndexRoute: typeof AuthenticatedAdminVideoIndexRoute
+  AuthenticatedQuestionsCreateIndexRoute: typeof AuthenticatedQuestionsCreateIndexRoute
   AuthenticatedAdminVideoVideoIdIndexRoute: typeof AuthenticatedAdminVideoVideoIdIndexRoute
   AuthenticatedSubjectsSubjectIdLessonsIndexRoute: typeof AuthenticatedSubjectsSubjectIdLessonsIndexRoute
   AuthenticatedSubjectsSubjectIdLessonsLessonIdVideosIndexRoute: typeof AuthenticatedSubjectsSubjectIdLessonsLessonIdVideosIndexRoute
@@ -285,9 +327,12 @@ interface AuthenticatedRouteChildren {
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  AuthenticatedQuestionsIndexRoute: AuthenticatedQuestionsIndexRoute,
   AuthenticatedAdminVideoCreateRoute: AuthenticatedAdminVideoCreateRoute,
   AuthenticatedAdminDataIndexRoute: AuthenticatedAdminDataIndexRoute,
   AuthenticatedAdminVideoIndexRoute: AuthenticatedAdminVideoIndexRoute,
+  AuthenticatedQuestionsCreateIndexRoute:
+    AuthenticatedQuestionsCreateIndexRoute,
   AuthenticatedAdminVideoVideoIdIndexRoute:
     AuthenticatedAdminVideoVideoIdIndexRoute,
   AuthenticatedSubjectsSubjectIdLessonsIndexRoute:

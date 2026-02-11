@@ -28,6 +28,15 @@ export type CreateLessonRes = {
     lesson: Lesson;
 };
 
+export type CreateQuestionReq = {
+    question: string;
+    subject_id: number;
+};
+
+export type CreateQuestionRes = {
+    question: Question;
+};
+
 export type CreateSubjectReq = {
     class_id: number;
     name: string;
@@ -62,6 +71,10 @@ export type GetAllLessonsBySubjectIdRes = {
 
 export type GetAllLessonsRes = {
     lessons: Array<Lesson>;
+};
+
+export type GetAllQuestionsRes = {
+    questions: Array<Question>;
 };
 
 export type GetAllSubjectDetailsRes = {
@@ -100,6 +113,14 @@ export type LessonClassSubject = {
     class: Class;
     lesson: Lesson;
     subject: Subject;
+};
+
+export type Question = {
+    created_at: string;
+    id: number;
+    question: string;
+    subject_id: number;
+    updated_at: string;
 };
 
 export type Subject = {
@@ -267,6 +288,41 @@ export type CreateLessonResponses = {
 };
 
 export type CreateLessonResponse = CreateLessonResponses[keyof CreateLessonResponses];
+
+export type GetAllQuestionsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/questions';
+};
+
+export type GetAllQuestionsResponses = {
+    /**
+     * OK
+     */
+    200: GetAllQuestionsRes;
+};
+
+export type GetAllQuestionsResponse = GetAllQuestionsResponses[keyof GetAllQuestionsResponses];
+
+export type CreateQuestionData = {
+    /**
+     * body
+     */
+    body: CreateQuestionReq;
+    path?: never;
+    query?: never;
+    url: '/api/v1/questions';
+};
+
+export type CreateQuestionResponses = {
+    /**
+     * OK
+     */
+    200: CreateQuestionRes;
+};
+
+export type CreateQuestionResponse = CreateQuestionResponses[keyof CreateQuestionResponses];
 
 export type GetAllSubjectsData = {
     body?: never;
