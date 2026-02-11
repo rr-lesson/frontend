@@ -16,6 +16,7 @@ import { Route as UnauthenticatedAuthRouteImport } from './routes/_unauthenticat
 import { Route as AuthenticatedQuestionsIndexRouteImport } from './routes/_authenticated/questions/index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedQuestionsCreateIndexRouteImport } from './routes/_authenticated/questions/create/index'
+import { Route as AuthenticatedQuestionsQuestionIdIndexRouteImport } from './routes/_authenticated/questions/$questionId/index'
 import { Route as AuthenticatedAdminVideoIndexRouteImport } from './routes/_authenticated/admin/video/index'
 import { Route as AuthenticatedAdminDataIndexRouteImport } from './routes/_authenticated/admin/data/index'
 import { Route as AuthenticatedAdminVideoCreateRouteImport } from './routes/_authenticated/admin/video/create'
@@ -58,6 +59,12 @@ const AuthenticatedQuestionsCreateIndexRoute =
   AuthenticatedQuestionsCreateIndexRouteImport.update({
     id: '/questions/create/',
     path: '/questions/create/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedQuestionsQuestionIdIndexRoute =
+  AuthenticatedQuestionsQuestionIdIndexRouteImport.update({
+    id: '/questions/$questionId/',
+    path: '/questions/$questionId/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedAdminVideoIndexRoute =
@@ -114,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/admin/video/create': typeof AuthenticatedAdminVideoCreateRoute
   '/admin/data/': typeof AuthenticatedAdminDataIndexRoute
   '/admin/video/': typeof AuthenticatedAdminVideoIndexRoute
+  '/questions/$questionId/': typeof AuthenticatedQuestionsQuestionIdIndexRoute
   '/questions/create/': typeof AuthenticatedQuestionsCreateIndexRoute
   '/admin/video/$videoId/': typeof AuthenticatedAdminVideoVideoIdIndexRoute
   '/subjects/$subjectId/lessons/': typeof AuthenticatedSubjectsSubjectIdLessonsIndexRoute
@@ -129,6 +137,7 @@ export interface FileRoutesByTo {
   '/admin/video/create': typeof AuthenticatedAdminVideoCreateRoute
   '/admin/data': typeof AuthenticatedAdminDataIndexRoute
   '/admin/video': typeof AuthenticatedAdminVideoIndexRoute
+  '/questions/$questionId': typeof AuthenticatedQuestionsQuestionIdIndexRoute
   '/questions/create': typeof AuthenticatedQuestionsCreateIndexRoute
   '/admin/video/$videoId': typeof AuthenticatedAdminVideoVideoIdIndexRoute
   '/subjects/$subjectId/lessons': typeof AuthenticatedSubjectsSubjectIdLessonsIndexRoute
@@ -146,6 +155,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/video/create': typeof AuthenticatedAdminVideoCreateRoute
   '/_authenticated/admin/data/': typeof AuthenticatedAdminDataIndexRoute
   '/_authenticated/admin/video/': typeof AuthenticatedAdminVideoIndexRoute
+  '/_authenticated/questions/$questionId/': typeof AuthenticatedQuestionsQuestionIdIndexRoute
   '/_authenticated/questions/create/': typeof AuthenticatedQuestionsCreateIndexRoute
   '/_authenticated/admin/video/$videoId/': typeof AuthenticatedAdminVideoVideoIdIndexRoute
   '/_authenticated/subjects/$subjectId/lessons/': typeof AuthenticatedSubjectsSubjectIdLessonsIndexRoute
@@ -163,6 +173,7 @@ export interface FileRouteTypes {
     | '/admin/video/create'
     | '/admin/data/'
     | '/admin/video/'
+    | '/questions/$questionId/'
     | '/questions/create/'
     | '/admin/video/$videoId/'
     | '/subjects/$subjectId/lessons/'
@@ -178,6 +189,7 @@ export interface FileRouteTypes {
     | '/admin/video/create'
     | '/admin/data'
     | '/admin/video'
+    | '/questions/$questionId'
     | '/questions/create'
     | '/admin/video/$videoId'
     | '/subjects/$subjectId/lessons'
@@ -194,6 +206,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/video/create'
     | '/_authenticated/admin/data/'
     | '/_authenticated/admin/video/'
+    | '/_authenticated/questions/$questionId/'
     | '/_authenticated/questions/create/'
     | '/_authenticated/admin/video/$videoId/'
     | '/_authenticated/subjects/$subjectId/lessons/'
@@ -258,6 +271,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedQuestionsCreateIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/questions/$questionId/': {
+      id: '/_authenticated/questions/$questionId/'
+      path: '/questions/$questionId'
+      fullPath: '/questions/$questionId/'
+      preLoaderRoute: typeof AuthenticatedQuestionsQuestionIdIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/admin/video/': {
       id: '/_authenticated/admin/video/'
       path: '/admin/video'
@@ -317,6 +337,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAdminVideoCreateRoute: typeof AuthenticatedAdminVideoCreateRoute
   AuthenticatedAdminDataIndexRoute: typeof AuthenticatedAdminDataIndexRoute
   AuthenticatedAdminVideoIndexRoute: typeof AuthenticatedAdminVideoIndexRoute
+  AuthenticatedQuestionsQuestionIdIndexRoute: typeof AuthenticatedQuestionsQuestionIdIndexRoute
   AuthenticatedQuestionsCreateIndexRoute: typeof AuthenticatedQuestionsCreateIndexRoute
   AuthenticatedAdminVideoVideoIdIndexRoute: typeof AuthenticatedAdminVideoVideoIdIndexRoute
   AuthenticatedSubjectsSubjectIdLessonsIndexRoute: typeof AuthenticatedSubjectsSubjectIdLessonsIndexRoute
@@ -331,6 +352,8 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAdminVideoCreateRoute: AuthenticatedAdminVideoCreateRoute,
   AuthenticatedAdminDataIndexRoute: AuthenticatedAdminDataIndexRoute,
   AuthenticatedAdminVideoIndexRoute: AuthenticatedAdminVideoIndexRoute,
+  AuthenticatedQuestionsQuestionIdIndexRoute:
+    AuthenticatedQuestionsQuestionIdIndexRoute,
   AuthenticatedQuestionsCreateIndexRoute:
     AuthenticatedQuestionsCreateIndexRoute,
   AuthenticatedAdminVideoVideoIdIndexRoute:
