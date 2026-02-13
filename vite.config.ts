@@ -17,7 +17,15 @@ export default defineConfig({
     }),
     viteReact(),
     tailwindcss(),
-    VitePWA({ registerType: "autoUpdate" }),
+    VitePWA({
+      registerType: "autoUpdate",
+      manifest: {
+        name: "BisaBimbel",
+        short_name: "BisaBimbel",
+        theme_color: "#ffffff",
+        display: "standalone",
+      },
+    }),
   ],
   resolve: {
     alias: {
@@ -25,6 +33,6 @@ export default defineConfig({
     },
   },
   server: {
-    allowedHosts: ["rizalanggoro"],
+    allowedHosts: ["rizalanggoro", "rizalanggoro.snake-caiman.ts.net"],
   },
 });

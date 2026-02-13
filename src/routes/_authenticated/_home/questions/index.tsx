@@ -9,7 +9,7 @@ import Mathematics from "@tiptap/extension-mathematics";
 import StarterKit from "@tiptap/starter-kit";
 import { ChevronRightIcon, PlusIcon } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/questions/")({
+export const Route = createFileRoute("/_authenticated/_home/questions/")({
   component: RouteComponent,
   onEnter: () => {
     jotaiStore.set(navbarTitleAtom, "Ruang Tanya");

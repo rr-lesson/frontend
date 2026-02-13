@@ -1,8 +1,8 @@
 import { jotaiStore } from "@/stores";
-import { TanStackDevtools } from "@tanstack/react-devtools";
+// import { TanStackDevtools } from "@tanstack/react-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+// import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { Provider } from "jotai";
 
 const queryClient = new QueryClient();
@@ -14,7 +14,7 @@ export const Route = createRootRoute({
         <Provider store={jotaiStore}>
           <Outlet />
         </Provider>
-        <TanStackDevtools
+        {/* <TanStackDevtools
           config={{
             position: "bottom-right",
           }}
@@ -24,7 +24,7 @@ export const Route = createRootRoute({
               render: <TanStackRouterDevtoolsPanel />,
             },
           ]}
-        />
+        /> */}
       </QueryClientProvider>
     </>
   ),

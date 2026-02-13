@@ -25,7 +25,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useAtom } from "jotai";
 import { PlayIcon, PlusIcon } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/")({
+export const Route = createFileRoute("/_authenticated/_home/")({
   component: RouteComponent,
   onEnter: () => {
     jotaiStore.set(navbarTitleAtom, "Ringkasan");
@@ -114,7 +114,9 @@ function RouteComponent() {
 
         <div className="flex justify-end gap-2">
           <Button className="flex-1" variant={"outline"} asChild>
-            <Link to="/questions">Lihat daftar pertanyaan</Link>
+            <Link to="/questions" replace>
+              Lihat daftar pertanyaan
+            </Link>
           </Button>
           <Button variant={"default"} asChild size={"icon"}>
             <Link to="/questions/create">
