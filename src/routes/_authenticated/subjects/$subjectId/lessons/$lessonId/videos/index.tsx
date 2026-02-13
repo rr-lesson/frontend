@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { jotaiStore, navbarTitleAtom } from "@/stores";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PlayIcon, VideoIcon } from "lucide-react";
@@ -15,6 +16,9 @@ export const Route = createFileRoute(
   "/_authenticated/subjects/$subjectId/lessons/$lessonId/videos/",
 )({
   component: RouteComponent,
+  onEnter: () => {
+    jotaiStore.set(navbarTitleAtom, "Daftar Video");
+  },
 });
 
 function RouteComponent() {

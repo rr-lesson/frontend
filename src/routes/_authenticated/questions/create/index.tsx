@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
+import { jotaiStore, navbarTitleAtom } from "@/stores";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
@@ -36,6 +37,9 @@ import z from "zod";
 
 export const Route = createFileRoute("/_authenticated/questions/create/")({
   component: RouteComponent,
+  onEnter: () => {
+    jotaiStore.set(navbarTitleAtom, "Pertanyaan Baru");
+  },
 });
 
 const formSchema = z.object({

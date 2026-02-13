@@ -1,5 +1,6 @@
 import { getAllLessonsOptions } from "@/api/@tanstack/react-query.gen";
 import { Button } from "@/components/ui/button";
+import { jotaiStore, navbarTitleAtom } from "@/stores";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
@@ -7,6 +8,9 @@ export const Route = createFileRoute(
   "/_authenticated/subjects/$subjectId/lessons/",
 )({
   component: RouteComponent,
+  onEnter: () => {
+    jotaiStore.set(navbarTitleAtom, "Daftar Materi");
+  },
 });
 
 function RouteComponent() {

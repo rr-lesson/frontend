@@ -1,6 +1,7 @@
 import { getAllQuestionsOptions } from "@/api/@tanstack/react-query.gen";
 import { Button } from "@/components/ui/button";
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { jotaiStore, navbarTitleAtom } from "@/stores";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { generateText } from "@tiptap/core";
@@ -10,6 +11,9 @@ import { ChevronRightIcon, PlusIcon } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/questions/")({
   component: RouteComponent,
+  onEnter: () => {
+    jotaiStore.set(navbarTitleAtom, "Ruang Tanya");
+  },
 });
 
 function RouteComponent() {
