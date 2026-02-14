@@ -10,11 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TestRouteImport } from './routes/test'
+import { Route as UnauthenticatedRouteImport } from './routes/_unauthenticated'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
-import { Route as UnauthenticatedAuthRouteImport } from './routes/_unauthenticated/auth'
 import { Route as AuthenticatedHomeRouteImport } from './routes/_authenticated/_home'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedHomeIndexRouteImport } from './routes/_authenticated/_home/index'
+import { Route as UnauthenticatedAuthRegisterRouteImport } from './routes/_unauthenticated/auth/register'
+import { Route as UnauthenticatedAuthLoginRouteImport } from './routes/_unauthenticated/auth/login'
 import { Route as AuthenticatedQuestionsCreateIndexRouteImport } from './routes/_authenticated/questions/create/index'
 import { Route as AuthenticatedQuestionsQuestionIdIndexRouteImport } from './routes/_authenticated/questions/$questionId/index'
 import { Route as AuthenticatedAdminVideoIndexRouteImport } from './routes/_authenticated/admin/video/index'
@@ -32,13 +34,12 @@ const TestRoute = TestRouteImport.update({
   path: '/test',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRoute = AuthenticatedRouteImport.update({
-  id: '/_authenticated',
+const UnauthenticatedRoute = UnauthenticatedRouteImport.update({
+  id: '/_unauthenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UnauthenticatedAuthRoute = UnauthenticatedAuthRouteImport.update({
-  id: '/_unauthenticated/auth',
-  path: '/auth',
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedHomeRoute = AuthenticatedHomeRouteImport.update({
@@ -55,6 +56,18 @@ const AuthenticatedHomeIndexRoute = AuthenticatedHomeIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedHomeRoute,
 } as any)
+const UnauthenticatedAuthRegisterRoute =
+  UnauthenticatedAuthRegisterRouteImport.update({
+    id: '/auth/register',
+    path: '/auth/register',
+    getParentRoute: () => UnauthenticatedRoute,
+  } as any)
+const UnauthenticatedAuthLoginRoute =
+  UnauthenticatedAuthLoginRouteImport.update({
+    id: '/auth/login',
+    path: '/auth/login',
+    getParentRoute: () => UnauthenticatedRoute,
+  } as any)
 const AuthenticatedQuestionsCreateIndexRoute =
   AuthenticatedQuestionsCreateIndexRouteImport.update({
     id: '/questions/create/',
@@ -127,7 +140,8 @@ const AuthenticatedSubjectsSubjectIdLessonsLessonIdVideosVideoIdIndexRoute =
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedHomeIndexRoute
   '/test': typeof TestRoute
-  '/auth': typeof UnauthenticatedAuthRoute
+  '/auth/login': typeof UnauthenticatedAuthLoginRoute
+  '/auth/register': typeof UnauthenticatedAuthRegisterRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/video/create': typeof AuthenticatedAdminVideoCreateRoute
   '/questions/': typeof AuthenticatedHomeQuestionsIndexRoute
@@ -144,7 +158,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedHomeIndexRoute
   '/test': typeof TestRoute
-  '/auth': typeof UnauthenticatedAuthRoute
+  '/auth/login': typeof UnauthenticatedAuthLoginRoute
+  '/auth/register': typeof UnauthenticatedAuthRegisterRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/video/create': typeof AuthenticatedAdminVideoCreateRoute
   '/questions': typeof AuthenticatedHomeQuestionsIndexRoute
@@ -161,9 +176,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/_unauthenticated': typeof UnauthenticatedRouteWithChildren
   '/test': typeof TestRoute
   '/_authenticated/_home': typeof AuthenticatedHomeRouteWithChildren
-  '/_unauthenticated/auth': typeof UnauthenticatedAuthRoute
+  '/_unauthenticated/auth/login': typeof UnauthenticatedAuthLoginRoute
+  '/_unauthenticated/auth/register': typeof UnauthenticatedAuthRegisterRoute
   '/_authenticated/_home/': typeof AuthenticatedHomeIndexRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/video/create': typeof AuthenticatedAdminVideoCreateRoute
@@ -183,7 +200,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/test'
-    | '/auth'
+    | '/auth/login'
+    | '/auth/register'
     | '/admin/'
     | '/admin/video/create'
     | '/questions/'
@@ -200,7 +218,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/test'
-    | '/auth'
+    | '/auth/login'
+    | '/auth/register'
     | '/admin'
     | '/admin/video/create'
     | '/questions'
@@ -216,9 +235,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_authenticated'
+    | '/_unauthenticated'
     | '/test'
     | '/_authenticated/_home'
-    | '/_unauthenticated/auth'
+    | '/_unauthenticated/auth/login'
+    | '/_unauthenticated/auth/register'
     | '/_authenticated/_home/'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/video/create'
@@ -236,8 +257,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  UnauthenticatedRoute: typeof UnauthenticatedRouteWithChildren
   TestRoute: typeof TestRoute
-  UnauthenticatedAuthRoute: typeof UnauthenticatedAuthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -249,18 +270,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TestRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_unauthenticated': {
+      id: '/_unauthenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof UnauthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_unauthenticated/auth': {
-      id: '/_unauthenticated/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof UnauthenticatedAuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/_home': {
@@ -283,6 +304,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedHomeIndexRouteImport
       parentRoute: typeof AuthenticatedHomeRoute
+    }
+    '/_unauthenticated/auth/register': {
+      id: '/_unauthenticated/auth/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof UnauthenticatedAuthRegisterRouteImport
+      parentRoute: typeof UnauthenticatedRoute
+    }
+    '/_unauthenticated/auth/login': {
+      id: '/_unauthenticated/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof UnauthenticatedAuthLoginRouteImport
+      parentRoute: typeof UnauthenticatedRoute
     }
     '/_authenticated/questions/create/': {
       id: '/_authenticated/questions/create/'
@@ -417,10 +452,24 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
+interface UnauthenticatedRouteChildren {
+  UnauthenticatedAuthLoginRoute: typeof UnauthenticatedAuthLoginRoute
+  UnauthenticatedAuthRegisterRoute: typeof UnauthenticatedAuthRegisterRoute
+}
+
+const UnauthenticatedRouteChildren: UnauthenticatedRouteChildren = {
+  UnauthenticatedAuthLoginRoute: UnauthenticatedAuthLoginRoute,
+  UnauthenticatedAuthRegisterRoute: UnauthenticatedAuthRegisterRoute,
+}
+
+const UnauthenticatedRouteWithChildren = UnauthenticatedRoute._addFileChildren(
+  UnauthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  UnauthenticatedRoute: UnauthenticatedRouteWithChildren,
   TestRoute: TestRoute,
-  UnauthenticatedAuthRoute: UnauthenticatedAuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

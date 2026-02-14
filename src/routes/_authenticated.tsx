@@ -10,6 +10,7 @@ import { navbarTitleAtom } from "@/stores";
 import {
   createFileRoute,
   Outlet,
+  redirect,
   useCanGoBack,
   useRouter,
 } from "@tanstack/react-router";
@@ -18,6 +19,10 @@ import { ChevronLeftIcon } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated")({
   component: RouteComponent,
+  loader: () => {
+    if (!localStorage.getItem("userProfile"))
+      throw redirect({ to: "/auth/login", replace: true });
+  },
 });
 
 function RouteComponent() {

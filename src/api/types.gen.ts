@@ -115,12 +115,31 @@ export type LessonClassSubject = {
     subject: Subject;
 };
 
+export type LoginReq = {
+    email: string;
+    password: string;
+};
+
+export type LoginRes = {
+    user: User;
+};
+
 export type Question = {
     created_at: string;
     id: number;
     question: string;
     subject_id: number;
     updated_at: string;
+};
+
+export type RegisterReq = {
+    email: string;
+    name: string;
+    password: string;
+};
+
+export type RegisterRes = {
+    user: User;
 };
 
 export type Subject = {
@@ -134,6 +153,16 @@ export type Subject = {
 export type SubjectDetail = {
     class: Class;
     subject: Subject;
+};
+
+export type User = {
+    created_at: string;
+    email: string;
+    id: number;
+    name: string;
+    password: string;
+    role: string;
+    updated_at: string;
 };
 
 export type Video = {
@@ -152,6 +181,44 @@ export type VideoDetail = {
     subject: Subject;
     video: Video;
 };
+
+export type LoginData = {
+    /**
+     * body
+     */
+    body: LoginReq;
+    path?: never;
+    query?: never;
+    url: '/api/v1/auth/login';
+};
+
+export type LoginResponses = {
+    /**
+     * OK
+     */
+    200: LoginRes;
+};
+
+export type LoginResponse = LoginResponses[keyof LoginResponses];
+
+export type RegisterData = {
+    /**
+     * body
+     */
+    body: RegisterReq;
+    path?: never;
+    query?: never;
+    url: '/api/v1/auth/register';
+};
+
+export type RegisterResponses = {
+    /**
+     * OK
+     */
+    200: RegisterRes;
+};
+
+export type RegisterResponse = RegisterResponses[keyof RegisterResponses];
 
 export type GetAllClassesData = {
     body?: never;

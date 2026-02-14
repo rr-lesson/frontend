@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { CreateClassData, CreateClassResponses, CreateLessonData, CreateLessonResponses, CreateQuestionData, CreateQuestionResponses, CreateSubjectData, CreateSubjectResponses, CreateVideoData, CreateVideoResponses, GetAllClassesData, GetAllClassesResponses, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponses, GetAllLessonsData, GetAllLessonsResponses, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponses, GetAllQuestionsData, GetAllQuestionsResponses, GetAllSubjectDetailsData, GetAllSubjectDetailsResponses, GetAllSubjectsData, GetAllSubjectsResponses, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponses, GetAllVideosData, GetAllVideosResponses, GetAllVideosWithDetailData, GetAllVideosWithDetailResponses, GetVideoWithDetailData, GetVideoWithDetailResponses } from './types.gen';
+import type { CreateClassData, CreateClassResponses, CreateLessonData, CreateLessonResponses, CreateQuestionData, CreateQuestionResponses, CreateSubjectData, CreateSubjectResponses, CreateVideoData, CreateVideoResponses, GetAllClassesData, GetAllClassesResponses, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponses, GetAllLessonsData, GetAllLessonsResponses, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponses, GetAllQuestionsData, GetAllQuestionsResponses, GetAllSubjectDetailsData, GetAllSubjectDetailsResponses, GetAllSubjectsData, GetAllSubjectsResponses, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponses, GetAllVideosData, GetAllVideosResponses, GetAllVideosWithDetailData, GetAllVideosWithDetailResponses, GetVideoWithDetailData, GetVideoWithDetailResponses, LoginData, LoginResponses, RegisterData, RegisterResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -17,6 +17,24 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
      */
     meta?: Record<string, unknown>;
 };
+
+export const login = <ThrowOnError extends boolean = false>(options: Options<LoginData, ThrowOnError>) => (options.client ?? client).post<LoginResponses, unknown, ThrowOnError>({
+    url: '/api/v1/auth/login',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const register = <ThrowOnError extends boolean = false>(options: Options<RegisterData, ThrowOnError>) => (options.client ?? client).post<RegisterResponses, unknown, ThrowOnError>({
+    url: '/api/v1/auth/register',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
 
 export const getAllClasses = <ThrowOnError extends boolean = false>(options?: Options<GetAllClassesData, ThrowOnError>) => (options?.client ?? client).get<GetAllClassesResponses, unknown, ThrowOnError>({ url: '/api/v1/classes', ...options });
 
