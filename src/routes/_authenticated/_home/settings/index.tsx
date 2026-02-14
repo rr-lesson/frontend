@@ -19,7 +19,7 @@ function RouteComponent() {
   const navigate = useNavigate();
 
   const { theme, setTheme } = useTheme();
-  const [profile, setProfile] = useAtom(userProfileAtom);
+  const [profile] = useAtom(userProfileAtom);
   const [logoutDialog, setLogoutDialog] = useState({
     open: false,
   });
