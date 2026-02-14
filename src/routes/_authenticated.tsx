@@ -1,4 +1,5 @@
 import { AppSidebar } from "@/components/sidebar";
+import { Button } from "@/components/ui/button";
 import {
   SidebarInset,
   SidebarProvider,
@@ -13,7 +14,7 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 import { useAtomValue } from "jotai";
-import { ArrowLeftIcon } from "lucide-react";
+import { ChevronLeftIcon } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated")({
   component: RouteComponent,
@@ -39,13 +40,18 @@ function RouteComponent() {
                 {isMobile || <SidebarTrigger />}
                 {/* back button */}
                 {isMobile && canGoBack && (
-                  <ArrowLeftIcon
+                  <Button
                     onClick={() => {
                       if (canGoBack) router.history.back();
                     }}
-                  />
+                    className="text-primary rounded-full"
+                    variant={"secondary"}
+                    size={"icon-lg"}
+                  >
+                    <ChevronLeftIcon className="size-5" />
+                  </Button>
                 )}
-                <p className="text-base font-medium">{navbarTitle}</p>
+                <p className="text-lg font-medium">{navbarTitle}</p>
               </div>
             </header>
 

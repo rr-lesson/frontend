@@ -93,17 +93,6 @@ function RouteComponent() {
           ))}
       </div>
 
-      <div>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus
-          animi sit labore, consequatur ipsum voluptates fugit nemo fugiat ab
-          nobis, porro libero laboriosam sint cupiditate, mollitia eligendi
-          aperiam voluptatum eius? Lorem ipsum dolor sit, amet consectetur
-          adipisicing elit. Vel eum odit repudiandae eaque magnam sed maxime
-          recusandae quasi rem nihil ratione a quis natus numquam iure, deserunt
-        </p>
-      </div>
-
       {/* spacer */}
       <div>
         <div className="h-32"></div>

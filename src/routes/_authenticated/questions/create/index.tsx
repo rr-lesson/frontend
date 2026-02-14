@@ -28,10 +28,10 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 import { Mathematics } from "@tiptap/extension-mathematics";
+import { Placeholder } from "@tiptap/extensions";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import "katex/dist/katex.min.css";
-import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import z from "zod";
 
@@ -64,10 +64,20 @@ function RouteComponent() {
   const canGoBack = useCanGoBack();
 
   const editor = useEditor({
-    extensions: [StarterKit, Mathematics],
+    extensions: [
+      Placeholder.configure({ placeholder: "Tulis pertanyaanmu di sini..." }),
+      StarterKit,
+      Mathematics,
+    ],
     onUpdate: ({ editor }) => {
       form.setValue("isQuestionEmpty", editor.isEmpty);
       form.setValue("question", JSON.stringify(editor.getJSON()));
+    },
+    editorProps: {
+      attributes: {
+        class:
+          "focus:outline-none px-3 border-input border rounded-md shadow-xs",
+      },
     },
   });
 
@@ -75,21 +85,21 @@ function RouteComponent() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       isQuestionEmpty: true,
-      question: `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"test"}]}]}`,
+      // question: `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"test"}]}]}`,
     },
   });
 
-  useEffect(() => {
-    form.reset({
-      isQuestionEmpty: false,
-      question: `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"test"}]}]}`,
-    });
-    editor.commands.setContent(
-      JSON.parse(
-        `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"test"}]}]}`,
-      ),
-    );
-  }, []);
+  // useEffect(() => {
+  //   form.reset({
+  //     isQuestionEmpty: false,
+  //     question: `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"test"}]}]}`,
+  //   });
+  //   editor.commands.setContent(
+  //     JSON.parse(
+  //       `{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"test"}]}]}`,
+  //     ),
+  //   );
+  // }, []);
 
   const { data: dataClasses, isLoading: isLoadingClasses } = useQuery({
     ...getAllClassesOptions(),
@@ -116,9 +126,9 @@ function RouteComponent() {
     });
 
   return (
-    <div>
+    <div className="py-4">
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FieldGroup>
+        <FieldGroup className="gap-4">
           <Controller
             name="classId"
             control={form.control}
@@ -196,8 +206,8 @@ function RouteComponent() {
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor={field.name}>Bug Title</FieldLabel>
-                <div className="prose">
+                <FieldLabel htmlFor={field.name}>Pertanyaan</FieldLabel>
+                <div className="prose dark:prose-invert">
                   <EditorContent
                     id={field.name}
                     editor={editor}
@@ -210,13 +220,16 @@ function RouteComponent() {
               </Field>
             )}
           />
-
-          <Button onClick={form.handleSubmit(onSubmit)}>
-            {isPendingCreate && <Spinner />}
-            Ajukan
-          </Button>
         </FieldGroup>
       </form>
+
+      <Button
+        onClick={form.handleSubmit(onSubmit)}
+        className="fixed bottom-[env(safe-area-inset-bottom)] left-4 right-4 mb-4"
+      >
+        {isPendingCreate && <Spinner />}
+        Ajukan
+      </Button>
     </div>
   );
 }
