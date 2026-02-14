@@ -22,8 +22,10 @@ export default defineConfig({
       manifest: {
         name: "BisaBimbel",
         short_name: "BisaBimbel",
-        theme_color: "#ffffff",
+        theme_color: "transparent",
         display: "standalone",
+        orientation: "portrait",
+        lang: "id",
       },
     }),
   ],
