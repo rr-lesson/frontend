@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@/components/theme-provider";
 import { jotaiStore } from "@/stores";
 // import { TanStackDevtools } from "@tanstack/react-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -12,7 +13,9 @@ export const Route = createRootRoute({
     <>
       <QueryClientProvider client={queryClient}>
         <Provider store={jotaiStore}>
-          <Outlet />
+          <ThemeProvider defaultTheme="light">
+            <Outlet />
+          </ThemeProvider>
         </Provider>
         {/* <TanStackDevtools
           config={{
