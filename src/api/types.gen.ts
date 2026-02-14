@@ -124,6 +124,10 @@ export type LoginRes = {
     user: User;
 };
 
+export type LogoutRes = {
+    message: string;
+};
+
 export type Question = {
     created_at: string;
     id: number;
@@ -200,6 +204,22 @@ export type LoginResponses = {
 };
 
 export type LoginResponse = LoginResponses[keyof LoginResponses];
+
+export type LogoutData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/auth/logout';
+};
+
+export type LogoutResponses = {
+    /**
+     * OK
+     */
+    200: LogoutRes;
+};
+
+export type LogoutResponse = LogoutResponses[keyof LogoutResponses];
 
 export type RegisterData = {
     /**
