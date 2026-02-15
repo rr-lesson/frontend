@@ -48,7 +48,7 @@ function RouteComponent() {
       </div>
 
       {/* navbar */}
-      <div className="fixed bottom-0 w-full right-0 left-0 mb-[env(safe-area-inset-bottom)] pointer-events-auto">
+      <div className="fixed md:hidden bottom-0 w-full right-0 left-0 mb-[env(safe-area-inset-bottom)] pointer-events-auto">
         <div className="rounded-full border backdrop-blur-md flex items-center bg-card/70 w-fit mx-auto h-[calc(var(--spacing) * 15)] overflow-hidden px-0.5 mb-4">
           {navItems.map((item, index) => {
             const isActive = matchRoute({ to: item.to });

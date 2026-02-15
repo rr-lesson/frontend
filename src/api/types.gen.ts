@@ -74,7 +74,7 @@ export type GetAllLessonsRes = {
 };
 
 export type GetAllQuestionsRes = {
-    questions: Array<Question>;
+    items: Array<QuestionDto>;
 };
 
 export type GetAllSubjectDetailsRes = {
@@ -134,6 +134,14 @@ export type Question = {
     question: string;
     subject_id: number;
     updated_at: string;
+    user_id: number;
+};
+
+export type QuestionDto = {
+    class: Class;
+    data: Question;
+    subject: Subject;
+    user: User;
 };
 
 export type RegisterReq = {
@@ -379,7 +387,12 @@ export type CreateLessonResponse = CreateLessonResponses[keyof CreateLessonRespo
 export type GetAllQuestionsData = {
     body?: never;
     path?: never;
-    query?: never;
+    query?: {
+        /**
+         * includes
+         */
+        includes?: Array<'user' | 'subject' | 'class'>;
+    };
     url: '/api/v1/questions';
 };
 

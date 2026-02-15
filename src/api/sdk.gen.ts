@@ -69,7 +69,11 @@ export const createLesson = <ThrowOnError extends boolean = false>(options: Opti
     }
 });
 
-export const getAllQuestions = <ThrowOnError extends boolean = false>(options?: Options<GetAllQuestionsData, ThrowOnError>) => (options?.client ?? client).get<GetAllQuestionsResponses, unknown, ThrowOnError>({ url: '/api/v1/questions', ...options });
+export const getAllQuestions = <ThrowOnError extends boolean = false>(options?: Options<GetAllQuestionsData, ThrowOnError>) => (options?.client ?? client).get<GetAllQuestionsResponses, unknown, ThrowOnError>({
+    querySerializer: { parameters: { includes: { array: { explode: false } } } },
+    url: '/api/v1/questions',
+    ...options
+});
 
 export const createQuestion = <ThrowOnError extends boolean = false>(options: Options<CreateQuestionData, ThrowOnError>) => (options.client ?? client).post<CreateQuestionResponses, unknown, ThrowOnError>({
     url: '/api/v1/questions',

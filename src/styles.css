@@ -6,7 +6,6 @@
 @custom-variant dark (&:is(.dark *));
 
 body {
-  @apply m-0 select-none standalone:scale-100 standalone:transform-none;
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
     "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
