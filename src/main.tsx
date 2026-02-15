@@ -47,3 +47,12 @@ if (rootElement && !rootElement.innerHTML) {
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+// capacitor js
+// CapacitorApp.addListener("backButton", ({ canGoBack }) => {
+//   if (canGoBack) {
+//     router.history.back();
+//   } else {
+//     CapacitorApp.exitApp();
+//   }
+// });
