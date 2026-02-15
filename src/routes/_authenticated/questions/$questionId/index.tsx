@@ -79,6 +79,7 @@ function RouteComponent() {
       </div>
 
       <div
+        className="prose dark:prose-invert"
         ref={contentRef}
         dangerouslySetInnerHTML={{ __html: content ?? "" }}
       />

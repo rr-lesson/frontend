@@ -5,6 +5,7 @@ import ReactDOM from "react-dom/client";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 
+import { App as CapacitorApp } from "@capacitor/app";
 import { setDefaultOptions } from "date-fns";
 import { id } from "date-fns/locale";
 import { client } from "./api/client.gen.ts";
@@ -52,10 +53,10 @@ if (rootElement && !rootElement.innerHTML) {
 reportWebVitals();
 
 // capacitor js
-// CapacitorApp.addListener("backButton", ({ canGoBack }) => {
-//   if (canGoBack) {
-//     router.history.back();
-//   } else {
-//     CapacitorApp.exitApp();
-//   }
-// });
+CapacitorApp.addListener("backButton", ({ canGoBack }) => {
+  if (canGoBack) {
+    router.history.back();
+  } else {
+    CapacitorApp.exitApp();
+  }
+});
