@@ -1,4 +1,9 @@
 import type { CapacitorConfig } from "@capacitor/cli";
+import * as dotenv from "dotenv";
+
+dotenv.config();
+
+const isDevelopment = process.env.APP_ENV === "development";
 
 const config: CapacitorConfig = {
   appId: "id.my.rizalanggoro.bisabimbel",
@@ -8,7 +13,8 @@ const config: CapacitorConfig = {
     allowMixedContent: true,
   },
   server: {
-    androidScheme: "http",
+    androidScheme: isDevelopment ? "http" : "https",
+    hostname: isDevelopment ? "rizalanggoro" : "bisabimbel.rizalanggoro.my.id",
   },
   plugins: {
     StatusBar: {
