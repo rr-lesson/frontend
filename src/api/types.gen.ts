@@ -97,6 +97,10 @@ export type GetAllVideosWithDetailRes = {
     videos: Array<VideoDetail>;
 };
 
+export type GetQuestionRes = {
+    question: QuestionDto;
+};
+
 export type GetVideoWithDetailRes = {
     video: VideoDetail;
 };
@@ -423,6 +427,32 @@ export type CreateQuestionResponses = {
 };
 
 export type CreateQuestionResponse = CreateQuestionResponses[keyof CreateQuestionResponses];
+
+export type GetQuestionData = {
+    body?: never;
+    path: {
+        /**
+         * questionId
+         */
+        questionId: number;
+    };
+    query?: {
+        /**
+         * includes
+         */
+        includes?: Array<'user' | 'subject' | 'class'>;
+    };
+    url: '/api/v1/questions/{questionId}';
+};
+
+export type GetQuestionResponses = {
+    /**
+     * OK
+     */
+    200: GetQuestionRes;
+};
+
+export type GetQuestionResponse = GetQuestionResponses[keyof GetQuestionResponses];
 
 export type GetAllSubjectsData = {
     body?: never;

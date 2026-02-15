@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { createClass, createLesson, createQuestion, createSubject, createVideo, getAllClasses, getAllLessons, getAllLessonsBySubjectId, getAllLessonWithClassSubject, getAllQuestions, getAllSubjectDetails, getAllSubjects, getAllVideos, getAllVideosByLessonId, getAllVideosWithDetail, getVideoWithDetail, login, logout, type Options, register } from '../sdk.gen';
-import type { CreateClassData, CreateClassResponse, CreateLessonData, CreateLessonResponse, CreateQuestionData, CreateQuestionResponse, CreateSubjectData, CreateSubjectResponse, CreateVideoData, CreateVideoResponse, GetAllClassesData, GetAllClassesResponse, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponse, GetAllLessonsData, GetAllLessonsResponse, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponse, GetAllQuestionsData, GetAllQuestionsResponse, GetAllSubjectDetailsData, GetAllSubjectDetailsResponse, GetAllSubjectsData, GetAllSubjectsResponse, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponse, GetAllVideosData, GetAllVideosResponse, GetAllVideosWithDetailData, GetAllVideosWithDetailResponse, GetVideoWithDetailData, GetVideoWithDetailResponse, LoginData, LoginResponse, LogoutData, LogoutResponse, RegisterData, RegisterResponse } from '../types.gen';
+import { createClass, createLesson, createQuestion, createSubject, createVideo, getAllClasses, getAllLessons, getAllLessonsBySubjectId, getAllLessonWithClassSubject, getAllQuestions, getAllSubjectDetails, getAllSubjects, getAllVideos, getAllVideosByLessonId, getAllVideosWithDetail, getQuestion, getVideoWithDetail, login, logout, type Options, register } from '../sdk.gen';
+import type { CreateClassData, CreateClassResponse, CreateLessonData, CreateLessonResponse, CreateQuestionData, CreateQuestionResponse, CreateSubjectData, CreateSubjectResponse, CreateVideoData, CreateVideoResponse, GetAllClassesData, GetAllClassesResponse, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponse, GetAllLessonsData, GetAllLessonsResponse, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponse, GetAllQuestionsData, GetAllQuestionsResponse, GetAllSubjectDetailsData, GetAllSubjectDetailsResponse, GetAllSubjectsData, GetAllSubjectsResponse, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponse, GetAllVideosData, GetAllVideosResponse, GetAllVideosWithDetailData, GetAllVideosWithDetailResponse, GetQuestionData, GetQuestionResponse, GetVideoWithDetailData, GetVideoWithDetailResponse, LoginData, LoginResponse, LogoutData, LogoutResponse, RegisterData, RegisterResponse } from '../types.gen';
 
 export const loginMutation = (options?: Partial<Options<LoginData>>): UseMutationOptions<LoginResponse, DefaultError, Options<LoginData>> => {
     const mutationOptions: UseMutationOptions<LoginResponse, DefaultError, Options<LoginData>> = {
@@ -215,6 +215,21 @@ export const createQuestionMutation = (options?: Partial<Options<CreateQuestionD
     };
     return mutationOptions;
 };
+
+export const getQuestionQueryKey = (options: Options<GetQuestionData>) => createQueryKey('getQuestion', options);
+
+export const getQuestionOptions = (options: Options<GetQuestionData>) => queryOptions<GetQuestionResponse, DefaultError, GetQuestionResponse, ReturnType<typeof getQuestionQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getQuestion({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getQuestionQueryKey(options)
+});
 
 export const getAllSubjectsQueryKey = (options?: Options<GetAllSubjectsData>) => createQueryKey('getAllSubjects', options);
 

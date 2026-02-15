@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { CreateClassData, CreateClassResponses, CreateLessonData, CreateLessonResponses, CreateQuestionData, CreateQuestionResponses, CreateSubjectData, CreateSubjectResponses, CreateVideoData, CreateVideoResponses, GetAllClassesData, GetAllClassesResponses, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponses, GetAllLessonsData, GetAllLessonsResponses, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponses, GetAllQuestionsData, GetAllQuestionsResponses, GetAllSubjectDetailsData, GetAllSubjectDetailsResponses, GetAllSubjectsData, GetAllSubjectsResponses, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponses, GetAllVideosData, GetAllVideosResponses, GetAllVideosWithDetailData, GetAllVideosWithDetailResponses, GetVideoWithDetailData, GetVideoWithDetailResponses, LoginData, LoginResponses, LogoutData, LogoutResponses, RegisterData, RegisterResponses } from './types.gen';
+import type { CreateClassData, CreateClassResponses, CreateLessonData, CreateLessonResponses, CreateQuestionData, CreateQuestionResponses, CreateSubjectData, CreateSubjectResponses, CreateVideoData, CreateVideoResponses, GetAllClassesData, GetAllClassesResponses, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponses, GetAllLessonsData, GetAllLessonsResponses, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponses, GetAllQuestionsData, GetAllQuestionsResponses, GetAllSubjectDetailsData, GetAllSubjectDetailsResponses, GetAllSubjectsData, GetAllSubjectsResponses, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponses, GetAllVideosData, GetAllVideosResponses, GetAllVideosWithDetailData, GetAllVideosWithDetailResponses, GetQuestionData, GetQuestionResponses, GetVideoWithDetailData, GetVideoWithDetailResponses, LoginData, LoginResponses, LogoutData, LogoutResponses, RegisterData, RegisterResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -82,6 +82,12 @@ export const createQuestion = <ThrowOnError extends boolean = false>(options: Op
         'Content-Type': 'application/json',
         ...options.headers
     }
+});
+
+export const getQuestion = <ThrowOnError extends boolean = false>(options: Options<GetQuestionData, ThrowOnError>) => (options.client ?? client).get<GetQuestionResponses, unknown, ThrowOnError>({
+    querySerializer: { parameters: { includes: { array: { explode: false } } } },
+    url: '/api/v1/questions/{questionId}',
+    ...options
 });
 
 export const getAllSubjects = <ThrowOnError extends boolean = false>(options?: Options<GetAllSubjectsData, ThrowOnError>) => (options?.client ?? client).get<GetAllSubjectsResponses, unknown, ThrowOnError>({ url: '/api/v1/subjects', ...options });
