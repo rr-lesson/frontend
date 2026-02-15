@@ -40,7 +40,12 @@ function RouteComponent() {
           </div>
         </div>
 
-        <Card className="py-4 shadow-none">
+        <Card
+          className="py-4 shadow-none active:scale-95 transition-all"
+          onClick={() => {
+            setTheme(theme === "dark" ? "light" : "dark");
+          }}
+        >
           <CardContent className="px-4 flex items-center justify-between">
             <p className="text-base">Gunakan tema gelap</p>
             <Switch
