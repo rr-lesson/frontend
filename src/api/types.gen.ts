@@ -393,6 +393,10 @@ export type GetAllQuestionsData = {
     path?: never;
     query?: {
         /**
+         * keyword
+         */
+        keyword?: string;
+        /**
          * includes
          */
         includes?: Array<'user' | 'subject' | 'class'>;

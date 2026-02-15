@@ -7,6 +7,8 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Spinner } from "@/components/ui/spinner";
+import { useDebounce } from "@/hooks/use-debounce";
 import { jotaiStore, navbarTitleAtom } from "@/stores";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -21,7 +23,9 @@ import {
   PlusIcon,
   SearchIcon,
   UserIcon,
+  XIcon,
 } from "lucide-react";
+import { useState } from "react";
 
 export const Route = createFileRoute("/_authenticated/_home/questions/")({
   component: RouteComponent,
@@ -31,10 +35,14 @@ export const Route = createFileRoute("/_authenticated/_home/questions/")({
 });
 
 function RouteComponent() {
-  const { data: dataQuestions } = useQuery({
+  const [keyword, setKeyword] = useState("");
+  const debouncedKeyword = useDebounce(keyword, 500);
+
+  const { data: dataQuestions, isLoading: isLoadingQuestions } = useQuery({
     ...getAllQuestionsOptions({
       query: {
         includes: ["user", "subject", "class"],
+        keyword: debouncedKeyword,
       },
     }),
   });
@@ -45,9 +53,21 @@ function RouteComponent() {
         <Input
           placeholder="Cari pertanyaan..."
           className="bg-background/70 backdrop-blur-md"
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
         />
-        <Button size={"icon"}>
-          <SearchIcon />
+        {keyword && (
+          <Button
+            size={"icon"}
+            variant={"secondary"}
+            onClick={() => setKeyword("")}
+            disabled={isLoadingQuestions}
+          >
+            <XIcon />
+          </Button>
+        )}
+        <Button size={"icon"} disabled={isLoadingQuestions}>
+          {isLoadingQuestions ? <Spinner /> : <SearchIcon />}
         </Button>
       </div>
 
