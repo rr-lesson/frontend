@@ -19,7 +19,12 @@ import {
   ComboboxItem,
   ComboboxList,
 } from "@/components/ui/combobox";
-import { currentClassAtom, jotaiStore, navbarTitleAtom } from "@/stores";
+import {
+  currentClassAtom,
+  jotaiStore,
+  navbarTitleAtom,
+  userProfileAtom,
+} from "@/stores";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useAtom } from "jotai";
@@ -34,6 +39,7 @@ export const Route = createFileRoute("/_authenticated/_home/")({
 
 function RouteComponent() {
   const [currentClass, setCurrentClass] = useAtom(currentClassAtom);
+  const [userProfile] = useAtom(userProfileAtom);
 
   const { data: dataClasses } = useQuery({
     ...getAllClassesOptions(),
@@ -47,7 +53,9 @@ function RouteComponent() {
   return (
     <div className="py-6 space-y-6">
       <div>
-        <p className="text-xl font-semibold">Halo, Rizal Dwi Anggoro!!!</p>
+        <p className="text-xl font-semibold">
+          Halo, {userProfile?.name ?? "Anonim"}!
+        </p>
       </div>
 
       <Combobox
