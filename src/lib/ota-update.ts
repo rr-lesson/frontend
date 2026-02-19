@@ -1,3 +1,4 @@
+import { jotaiStore, newUpdateAvailableAtom } from "@/stores";
 import { LiveUpdate } from "@capawesome/capacitor-live-update";
 
 const VERSION_URL =
@@ -14,14 +15,16 @@ export const checkForOtaUpdates = async () => {
     if (currentBundle) {
       if (currentBundle.bundleId === data.bundleId) {
         console.log("App sudah versi terbaru");
-        localStorage.setItem("newUpdateAvailable", "false");
+        // localStorage.setItem("newUpdateAvailable", "false");
+        jotaiStore.set(newUpdateAvailableAtom, false);
         return;
       }
 
       const downloadedBundles = await LiveUpdate.getDownloadedBundles();
       if (downloadedBundles.bundleIds.some((id) => id === data.bundleId)) {
         console.log("Update sudah diunduh, siap diterapkan");
-        localStorage.setItem("newUpdateAvailable", "true");
+        // localStorage.setItem("newUpdateAvailable", "true");
+        jotaiStore.set(newUpdateAvailableAtom, true);
         return;
       }
 
@@ -39,7 +42,8 @@ export const checkForOtaUpdates = async () => {
       });
 
       console.log("Update akan diterapkan setelah restart app");
-      localStorage.setItem("newUpdateAvailable", "true");
+      // localStorage.setItem("newUpdateAvailable", "true");
+      jotaiStore.set(newUpdateAvailableAtom, true);
 
       // await LiveUpdate.reload();
     }
