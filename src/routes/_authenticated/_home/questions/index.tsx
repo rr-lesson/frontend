@@ -3,8 +3,10 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
@@ -20,7 +22,6 @@ import {
   CalendarIcon,
   FilesIcon,
   MoveRightIcon,
-  PlusIcon,
   SearchIcon,
   UserIcon,
   XIcon,
@@ -72,10 +73,29 @@ function RouteComponent() {
       </div>
 
       <div className="grid grid-cols-1 gap-2">
+        <Card className="shadow-none py-4 gap-4">
+          <CardHeader className="px-4">
+            <CardTitle>Punya pertanyaan?</CardTitle>
+            <CardDescription>
+              Jangan ragu untuk bertanya! Mentor di sini siap membantu menjawab
+              pertanyaanmu
+            </CardDescription>
+          </CardHeader>
+          <CardFooter className="px-4 justify-end">
+            <Button asChild>
+              <Link to="/questions/create">
+                Ajukan pertanyaan <MoveRightIcon />
+              </Link>
+            </Button>
+          </CardFooter>
+        </Card>
         {dataQuestions &&
           dataQuestions.items.map((item, index) => (
-            <Card key={"question-item-" + index} className="shadow-none">
-              <CardHeader className="flex items-center gap-3">
+            <Card
+              key={"question-item-" + index}
+              className="shadow-none py-4 gap-4"
+            >
+              <CardHeader className="flex items-center gap-3 px-4">
                 <div className="flex items-center justify-center size-10 bg-primary/10 rounded-full">
                   <UserIcon className="size-5 text-primary" />
                 </div>
@@ -88,7 +108,7 @@ function RouteComponent() {
                   </p>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="px-4">
                 <p className="text-muted-foreground line-clamp-2 text-sm">
                   {generateText(JSON.parse(item.data.question), [
                     StarterKit,
@@ -96,7 +116,7 @@ function RouteComponent() {
                   ])}
                 </p>
               </CardContent>
-              <CardFooter className="flex justify-between items-end">
+              <CardFooter className="flex justify-between items-end px-4">
                 <div className="space-y-1">
                   <div className="flex items-center text-muted-foreground text-xs gap-2">
                     <CalendarIcon className="size-3" />
@@ -122,18 +142,9 @@ function RouteComponent() {
 
       {/* spacer */}
       <div>
-        <div className="h-32"></div>
+        <div className="h-16"></div>
         <div className="h-[env(safe-area-inset-bottom)]"></div>
       </div>
-
-      <Button
-        className="size-14 fixed bottom-[env(safe-area-inset-bottom)] mb-24 md:mb-4 right-4 rounded-xl shadow-xl"
-        asChild
-      >
-        <Link to="/questions/create">
-          <PlusIcon className="size-5" />
-        </Link>
-      </Button>
     </div>
   );
 }

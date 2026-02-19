@@ -19,7 +19,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { jotaiStore, navbarTitleAtom } from "@/stores";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -63,7 +62,6 @@ const formSchema = z.object({
 function RouteComponent() {
   const router = useRouter();
   const canGoBack = useCanGoBack();
-  const isMobile = useIsMobile();
 
   const editor = useEditor({
     extensions: [

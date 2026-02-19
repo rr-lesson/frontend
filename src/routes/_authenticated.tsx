@@ -38,9 +38,9 @@ function RouteComponent() {
         {isMobile || <AppSidebar />}
 
         <SidebarInset>
-          <main className="flex-1 relative">
+          <main>
             {/* top app bar */}
-            <header className="border-b h-16 w-full absolute top-[env(safe-area-inset-top)] z-10 backdrop-blur-md bg-background/70">
+            <header className="border-b h-16 w-full sticky top-[env(safe-area-inset-top)] z-10 backdrop-blur-md bg-background/70">
               <div className="flex items-center h-16 px-4 justify-between">
                 <div className="flex items-center space-x-4">
                   {isMobile || <SidebarTrigger />}
@@ -64,7 +64,7 @@ function RouteComponent() {
 
             {/* content */}
             <div className="pt-[env(safe-area-inset-top)]">
-              <div className="max-w-5xl mx-auto px-4 pt-16 w-full">
+              <div className="max-w-5xl mx-auto px-4 w-full">
                 <Outlet />
               </div>
             </div>
