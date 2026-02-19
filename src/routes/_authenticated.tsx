@@ -50,8 +50,8 @@ function RouteComponent() {
                       onClick={() => {
                         if (canGoBack) router.history.back();
                       }}
-                      className="text-primary rounded-full"
                       variant={"secondary"}
+                      className="text-primary rounded-full bg-card border"
                       size={"icon-lg"}
                     >
                       <ChevronLeftIcon className="size-5" />
