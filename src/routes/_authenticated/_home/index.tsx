@@ -47,7 +47,7 @@ function RouteComponent() {
   return (
     <div className="py-6 space-y-6">
       <div>
-        <p className="text-xl font-semibold">Halo, Rizal Dwi Anggoro!</p>
+        <p className="text-xl font-semibold">Halo, Rizal Dwi Anggoro!!!</p>
       </div>
 
       <Combobox
