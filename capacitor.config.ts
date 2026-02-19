@@ -11,6 +11,7 @@ const config: CapacitorConfig = {
   webDir: "dist",
   android: {
     allowMixedContent: true,
+    flavor: isDevelopment ? "dev" : "prod",
   },
   server: {
     androidScheme: isDevelopment ? "http" : "https",
@@ -20,6 +21,7 @@ const config: CapacitorConfig = {
     StatusBar: {
       overlaysWebView: true,
     },
+    LiveUpdate: {},
   },
 };
 

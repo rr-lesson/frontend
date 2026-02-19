@@ -22,6 +22,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions = ["environment"]
+    productFlavors {
+        dev {
+            dimension "environment"
+            applicationIdSuffix ".dev"
+            manifestPlaceholders = [displayName:"BisaBimbel Dev"]
+        }
+        prod {
+            dimension "environment"
+            manifestPlaceholders = [displayName:"BisaBimbel"]
+        }
+    }
 }
 
 repositories {
