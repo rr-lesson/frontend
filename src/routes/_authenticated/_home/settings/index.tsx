@@ -3,16 +3,10 @@ import { useTheme } from "@/components/theme-provider";
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
-import {
-  jotaiStore,
-  navbarTitleAtom,
-  newUpdateAvailableAtom,
-  userProfileAtom,
-} from "@/stores";
-import { LiveUpdate } from "@capawesome/capacitor-live-update";
+import { jotaiStore, navbarTitleAtom, userProfileAtom } from "@/stores";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useAtom } from "jotai";
-import { ChevronRightIcon, RefreshCwIcon, UserIcon } from "lucide-react";
+import { ChevronRightIcon, UserIcon } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/_authenticated/_home/settings/")({
@@ -27,17 +21,9 @@ function RouteComponent() {
 
   const { theme, setTheme } = useTheme();
   const [profile] = useAtom(userProfileAtom);
-  const [updateAvailable, setUpdateAvailable] = useAtom(newUpdateAvailableAtom);
   const [logoutDialog, setLogoutDialog] = useState({
     open: false,
   });
-
-  const handleUpdate = () => {
-    LiveUpdate.reload().then(() => {
-      console.log("App updated successfully!");
-      setUpdateAvailable(false);
-    });
-  };
 
   return (
     <>
@@ -61,7 +47,6 @@ function RouteComponent() {
             <Card
               className={cn(
                 "py-4 shadow-none active:scale-95 transition-all",
-                updateAvailable && "rounded-b-none",
               )}
               onClick={() => {
                 setTheme(theme === "dark" ? "light" : "dark");
@@ -78,23 +63,6 @@ function RouteComponent() {
                 />
               </CardContent>
             </Card>
-
-            {updateAvailable && (
-              <Card
-                className="py-4 shadow-none active:scale-95 transition-all rounded-t-none"
-                onClick={handleUpdate}
-              >
-                <CardContent className="px-4 flex items-center gap-4">
-                  <RefreshCwIcon className="size-5" />
-                  <div>
-                    <p className="text-base">Pembaruan</p>
-                    <p className="text-sm text-muted-foreground">
-                      Klik untuk memuat ulang pembaruan aplikasi!
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
           </div>
         </div>
 

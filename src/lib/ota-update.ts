@@ -21,6 +21,7 @@ export const checkForOtaUpdates = async () => {
       }
 
       const downloadedBundles = await LiveUpdate.getDownloadedBundles();
+      console.log({ downloadedBundles });
       if (downloadedBundles.bundleIds.some((id) => id === data.bundleId)) {
         console.log("Update sudah diunduh, siap diterapkan");
         // localStorage.setItem("newUpdateAvailable", "true");
