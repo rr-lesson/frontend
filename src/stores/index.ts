@@ -14,3 +14,8 @@ export const userProfileAtom = atomWithStorage<User | null>(
   "userProfile",
   null,
 );
+
+export const newUpdateAvailableAtom = atomWithStorage<boolean>(
+  "newUpdateAvailable",
+  false,
+);
