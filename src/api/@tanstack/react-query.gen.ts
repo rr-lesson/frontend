@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { createClass, createLesson, createQuestion, createSubject, createVideo, getAllClasses, getAllLessons, getAllLessonsBySubjectId, getAllLessonWithClassSubject, getAllQuestions, getAllSubjectDetails, getAllSubjects, getAllVideos, getAllVideosByLessonId, getAllVideosWithDetail, getQuestion, getVideoWithDetail, login, logout, type Options, register } from '../sdk.gen';
-import type { CreateClassData, CreateClassResponse, CreateLessonData, CreateLessonResponse, CreateQuestionData, CreateQuestionResponse, CreateSubjectData, CreateSubjectResponse, CreateVideoData, CreateVideoResponse, GetAllClassesData, GetAllClassesResponse, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponse, GetAllLessonsData, GetAllLessonsResponse, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponse, GetAllQuestionsData, GetAllQuestionsResponse, GetAllSubjectDetailsData, GetAllSubjectDetailsResponse, GetAllSubjectsData, GetAllSubjectsResponse, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponse, GetAllVideosData, GetAllVideosResponse, GetAllVideosWithDetailData, GetAllVideosWithDetailResponse, GetQuestionData, GetQuestionResponse, GetVideoWithDetailData, GetVideoWithDetailResponse, LoginData, LoginResponse, LogoutData, LogoutResponse, RegisterData, RegisterResponse } from '../types.gen';
+import { createClass, createLesson, createQuestion, createSubject, createVideo, getAllClasses, getAllLessons, getAllLessonsBySubjectId, getAllLessonWithClassSubject, getAllQuestions, getAllSubjectDetails, getAllSubjects, getAllVideos, getAllVideosByLessonId, getAllVideosWithDetail, getQuestion, getVideoWithDetail, login, logout, type Options, refreshToken, register } from '../sdk.gen';
+import type { CreateClassData, CreateClassResponse, CreateLessonData, CreateLessonResponse, CreateQuestionData, CreateQuestionResponse, CreateSubjectData, CreateSubjectResponse, CreateVideoData, CreateVideoResponse, GetAllClassesData, GetAllClassesResponse, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponse, GetAllLessonsData, GetAllLessonsResponse, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponse, GetAllQuestionsData, GetAllQuestionsResponse, GetAllSubjectDetailsData, GetAllSubjectDetailsResponse, GetAllSubjectsData, GetAllSubjectsResponse, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponse, GetAllVideosData, GetAllVideosResponse, GetAllVideosWithDetailData, GetAllVideosWithDetailResponse, GetQuestionData, GetQuestionResponse, GetVideoWithDetailData, GetVideoWithDetailResponse, LoginData, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RegisterData, RegisterResponse } from '../types.gen';
 
 export const loginMutation = (options?: Partial<Options<LoginData>>): UseMutationOptions<LoginResponse, DefaultError, Options<LoginData>> => {
     const mutationOptions: UseMutationOptions<LoginResponse, DefaultError, Options<LoginData>> = {
@@ -24,6 +24,20 @@ export const logoutMutation = (options?: Partial<Options<LogoutData>>): UseMutat
     const mutationOptions: UseMutationOptions<LogoutResponse, DefaultError, Options<LogoutData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await logout({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const refreshTokenMutation = (options?: Partial<Options<RefreshTokenData>>): UseMutationOptions<RefreshTokenResponse, RefreshTokenError, Options<RefreshTokenData>> => {
+    const mutationOptions: UseMutationOptions<RefreshTokenResponse, RefreshTokenError, Options<RefreshTokenData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await refreshToken({
                 ...options,
                 ...fnOptions,
                 throwOnError: true

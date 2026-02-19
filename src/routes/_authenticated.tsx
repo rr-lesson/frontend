@@ -1,3 +1,4 @@
+import { refreshTokenMutation } from "@/api/@tanstack/react-query.gen";
 import { AppSidebar } from "@/components/sidebar";
 import { Button } from "@/components/ui/button";
 import {
@@ -6,7 +7,8 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { navbarTitleAtom } from "@/stores";
+import { navbarTitleAtom, userProfileAtom } from "@/stores";
+import { useMutation } from "@tanstack/react-query";
 import {
   createFileRoute,
   Outlet,
@@ -14,8 +16,9 @@ import {
   useCanGoBack,
   useRouter,
 } from "@tanstack/react-router";
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { ChevronLeftIcon } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 export const Route = createFileRoute("/_authenticated")({
   component: RouteComponent,
@@ -27,9 +30,29 @@ export const Route = createFileRoute("/_authenticated")({
 
 function RouteComponent() {
   const navbarTitle = useAtomValue(navbarTitleAtom);
+  const setUserProfile = useSetAtom(userProfileAtom);
   const isMobile = useIsMobile();
   const canGoBack = useCanGoBack();
   const router = useRouter();
+
+  const refreshTokenRunned = useRef(false);
+  const { mutate: mutateRefreshToken } = useMutation({
+    ...refreshTokenMutation(),
+    onSuccess: (data) => setUserProfile(data.user),
+    onError: (error) => {
+      if (error.code === 401) {
+        setUserProfile(null);
+        localStorage.removeItem("userProfile");
+        router.navigate({ to: "/auth/login", replace: true });
+      }
+    },
+  });
+
+  useEffect(() => {
+    if (refreshTokenRunned.current) return;
+    mutateRefreshToken({});
+    refreshTokenRunned.current = true;
+  }, []);
 
   return (
     <>

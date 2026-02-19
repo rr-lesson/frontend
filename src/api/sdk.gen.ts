@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { CreateClassData, CreateClassResponses, CreateLessonData, CreateLessonResponses, CreateQuestionData, CreateQuestionResponses, CreateSubjectData, CreateSubjectResponses, CreateVideoData, CreateVideoResponses, GetAllClassesData, GetAllClassesResponses, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponses, GetAllLessonsData, GetAllLessonsResponses, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponses, GetAllQuestionsData, GetAllQuestionsResponses, GetAllSubjectDetailsData, GetAllSubjectDetailsResponses, GetAllSubjectsData, GetAllSubjectsResponses, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponses, GetAllVideosData, GetAllVideosResponses, GetAllVideosWithDetailData, GetAllVideosWithDetailResponses, GetQuestionData, GetQuestionResponses, GetVideoWithDetailData, GetVideoWithDetailResponses, LoginData, LoginResponses, LogoutData, LogoutResponses, RegisterData, RegisterResponses } from './types.gen';
+import type { CreateClassData, CreateClassResponses, CreateLessonData, CreateLessonResponses, CreateQuestionData, CreateQuestionResponses, CreateSubjectData, CreateSubjectResponses, CreateVideoData, CreateVideoResponses, GetAllClassesData, GetAllClassesResponses, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponses, GetAllLessonsData, GetAllLessonsResponses, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponses, GetAllQuestionsData, GetAllQuestionsResponses, GetAllSubjectDetailsData, GetAllSubjectDetailsResponses, GetAllSubjectsData, GetAllSubjectsResponses, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponses, GetAllVideosData, GetAllVideosResponses, GetAllVideosWithDetailData, GetAllVideosWithDetailResponses, GetQuestionData, GetQuestionResponses, GetVideoWithDetailData, GetVideoWithDetailResponses, LoginData, LoginResponses, LogoutData, LogoutResponses, RefreshTokenData, RefreshTokenErrors, RefreshTokenResponses, RegisterData, RegisterResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -28,6 +28,8 @@ export const login = <ThrowOnError extends boolean = false>(options: Options<Log
 });
 
 export const logout = <ThrowOnError extends boolean = false>(options?: Options<LogoutData, ThrowOnError>) => (options?.client ?? client).delete<LogoutResponses, unknown, ThrowOnError>({ url: '/api/v1/auth/logout', ...options });
+
+export const refreshToken = <ThrowOnError extends boolean = false>(options?: Options<RefreshTokenData, ThrowOnError>) => (options?.client ?? client).put<RefreshTokenResponses, RefreshTokenErrors, ThrowOnError>({ url: '/api/v1/auth/refresh', ...options });
 
 export const register = <ThrowOnError extends boolean = false>(options: Options<RegisterData, ThrowOnError>) => (options.client ?? client).post<RegisterResponses, unknown, ThrowOnError>({
     url: '/api/v1/auth/register',

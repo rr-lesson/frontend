@@ -1,10 +1,12 @@
 import { getQuestionOptions } from "@/api/@tanstack/react-query.gen";
-import { jotaiStore, navbarTitleAtom } from "@/stores";
+import { Button } from "@/components/ui/button";
+import { jotaiStore, navbarTitleAtom, userProfileAtom } from "@/stores";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import Mathematics from "@tiptap/extension-mathematics";
 import { generateHTML } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { useAtomValue } from "jotai";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 import { UserIcon } from "lucide-react";
@@ -20,6 +22,7 @@ export const Route = createFileRoute("/_authenticated/questions/$questionId/")({
 function RouteComponent() {
   const { questionId } = Route.useParams();
   const contentRef = useRef<HTMLDivElement>(null);
+  const userProfile = useAtomValue(userProfileAtom);
 
   const { data: dataQuestion } = useQuery({
     ...getQuestionOptions({
@@ -83,6 +86,12 @@ function RouteComponent() {
         ref={contentRef}
         dangerouslySetInnerHTML={{ __html: content ?? "" }}
       />
+
+      {userProfile?.role === "admin" && (
+        <div className="flex justify-end">
+          <Button>Tambahkan jawaban</Button>
+        </div>
+      )}
     </div>
   );
 }

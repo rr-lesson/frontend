@@ -57,6 +57,11 @@ export type CreateVideoRes = {
     video: Video;
 };
 
+export type ErrorRes = {
+    code: number;
+    message: string;
+};
+
 export type GetAllClassesRes = {
     classes: Array<Class>;
 };
@@ -148,6 +153,10 @@ export type QuestionDto = {
     user: User;
 };
 
+export type RefreshTokenRes = {
+    user: User;
+};
+
 export type RegisterReq = {
     email: string;
     name: string;
@@ -232,6 +241,31 @@ export type LogoutResponses = {
 };
 
 export type LogoutResponse = LogoutResponses[keyof LogoutResponses];
+
+export type RefreshTokenData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/auth/refresh';
+};
+
+export type RefreshTokenErrors = {
+    /**
+     * Internal Server Error
+     */
+    500: ErrorRes;
+};
+
+export type RefreshTokenError = RefreshTokenErrors[keyof RefreshTokenErrors];
+
+export type RefreshTokenResponses = {
+    /**
+     * OK
+     */
+    200: RefreshTokenRes;
+};
+
+export type RefreshTokenResponse = RefreshTokenResponses[keyof RefreshTokenResponses];
 
 export type RegisterData = {
     /**
