@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { jotaiStore, navbarTitleAtom } from "@/stores";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -62,6 +63,7 @@ const formSchema = z.object({
 function RouteComponent() {
   const router = useRouter();
   const canGoBack = useCanGoBack();
+  const isMobile = useIsMobile();
 
   const editor = useEditor({
     extensions: [
@@ -126,7 +128,7 @@ function RouteComponent() {
     });
 
   return (
-    <div className="py-4">
+    <div className="py-4 space-y-4">
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FieldGroup className="gap-4">
           <Controller
@@ -207,7 +209,7 @@ function RouteComponent() {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>Pertanyaan</FieldLabel>
-                <div className="prose dark:prose-invert">
+                <div className="prose dark:prose-invert max-w-full">
                   <EditorContent
                     id={field.name}
                     editor={editor}
@@ -223,13 +225,12 @@ function RouteComponent() {
         </FieldGroup>
       </form>
 
-      <Button
-        onClick={form.handleSubmit(onSubmit)}
-        className="fixed bottom-[env(safe-area-inset-bottom)] left-4 right-4 mb-4"
-      >
-        {isPendingCreate && <Spinner />}
-        Ajukan
-      </Button>
+      <div className="flex justify-end">
+        <Button onClick={form.handleSubmit(onSubmit)} className="">
+          {isPendingCreate && <Spinner />}
+          Ajukan
+        </Button>
+      </div>
     </div>
   );
 }

@@ -38,25 +38,27 @@ function RouteComponent() {
         {isMobile || <AppSidebar />}
 
         <SidebarInset>
-          <main className="flex-1">
+          <main className="flex-1 relative">
             {/* top app bar */}
-            <header className="border-b h-16 w-full fixed top-[env(safe-area-inset-top)] z-10 backdrop-blur-md bg-background/70">
-              <div className="flex items-center h-16 px-4 space-x-4">
-                {isMobile || <SidebarTrigger />}
-                {/* back button */}
-                {isMobile && canGoBack && (
-                  <Button
-                    onClick={() => {
-                      if (canGoBack) router.history.back();
-                    }}
-                    className="text-primary rounded-full"
-                    variant={"secondary"}
-                    size={"icon-lg"}
-                  >
-                    <ChevronLeftIcon className="size-5" />
-                  </Button>
-                )}
-                <p className="text-lg font-medium">{navbarTitle}</p>
+            <header className="border-b h-16 w-full absolute top-[env(safe-area-inset-top)] z-10 backdrop-blur-md bg-background/70">
+              <div className="flex items-center h-16 px-4 justify-between">
+                <div className="flex items-center space-x-4">
+                  {isMobile || <SidebarTrigger />}
+                  {/* back button */}
+                  {isMobile && canGoBack && (
+                    <Button
+                      onClick={() => {
+                        if (canGoBack) router.history.back();
+                      }}
+                      className="text-primary rounded-full"
+                      variant={"secondary"}
+                      size={"icon-lg"}
+                    >
+                      <ChevronLeftIcon className="size-5" />
+                    </Button>
+                  )}
+                  <p className="text-lg font-medium">{navbarTitle}</p>
+                </div>
               </div>
             </header>
 
