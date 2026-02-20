@@ -88,9 +88,9 @@ function RouteComponent() {
               <TableBody>
                 {isSuccessClasses &&
                   dataClasses &&
-                  dataClasses.classes.map((item, index) => (
+                  dataClasses.items.map((item, index) => (
                     <TableRow key={"class-item-" + index}>
-                      <TableCell className="px-4">{item.name}</TableCell>
+                      <TableCell className="px-4">{item.data.name}</TableCell>
                       <TableCell className="px-4">
                         <Button variant={"outline"} size={"icon"}>
                           <MoreVerticalIcon />

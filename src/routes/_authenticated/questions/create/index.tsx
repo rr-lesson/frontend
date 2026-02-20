@@ -147,12 +147,12 @@ function RouteComponent() {
                   <SelectContent>
                     <SelectGroup>
                       {dataClasses &&
-                        dataClasses.classes.map((item, index) => (
+                        dataClasses.items.map((item, index) => (
                           <SelectItem
                             key={"class-item-" + index}
-                            value={String(item.id)}
+                            value={String(item.data.id)}
                           >
-                            {item.name}
+                            {item.data.name}
                           </SelectItem>
                         ))}
                     </SelectGroup>

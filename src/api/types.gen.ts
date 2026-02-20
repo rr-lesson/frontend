@@ -11,6 +11,10 @@ export type Class = {
     updated_at: string;
 };
 
+export type ClassDto = {
+    data: Class;
+};
+
 export type CreateClassReq = {
     name: string;
 };
@@ -63,7 +67,7 @@ export type ErrorRes = {
 };
 
 export type GetAllClassesRes = {
-    classes: Array<Class>;
+    items: Array<ClassDto>;
 };
 
 export type GetAllLessonWithClassSubjectRes = {

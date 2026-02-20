@@ -487,16 +487,4 @@ export default defineConfig({
   server: {
     allowedHosts: ["rizalanggoro", "rizalanggoro.snake-caiman.ts.net"],
   },
-  // build: {
-  //   rollupOptions: {
-  //     output: {
-  //       manualChunks: (id) => {
-  //         if (id.includes("node_modules")) {
-  //           const parts = id.toString().split("node_modules/")[1].split("/");
-  //           return parts[0];
-  //         }
-  //       },
-  //     },
-  //   },
-  // },
 });

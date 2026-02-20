@@ -1,5 +1,6 @@
 import { refreshTokenMutation } from "@/api/@tanstack/react-query.gen";
 import { AppSidebar } from "@/components/sidebar";
+import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import {
   SidebarInset,
@@ -17,7 +18,7 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 import { useAtomValue, useSetAtom } from "jotai";
-import { ChevronLeftIcon } from "lucide-react";
+import { ChevronLeftIcon, MoonIcon, SunIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 export const Route = createFileRoute("/_authenticated")({
@@ -34,6 +35,7 @@ function RouteComponent() {
   const isMobile = useIsMobile();
   const canGoBack = useCanGoBack();
   const router = useRouter();
+  const { theme, setTheme } = useTheme();
 
   const refreshTokenRunned = useRef(false);
   const { mutate: mutateRefreshToken } = useMutation({
@@ -82,6 +84,19 @@ function RouteComponent() {
                   )}
                   <p className="text-lg font-medium">{navbarTitle}</p>
                 </div>
+
+                {/* theme toggle */}
+                {isMobile || (
+                  <Button
+                    onClick={() =>
+                      setTheme(theme === "dark" ? "light" : "dark")
+                    }
+                    variant={"outline"}
+                    size={"icon"}
+                  >
+                    {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+                  </Button>
+                )}
               </div>
             </header>
 

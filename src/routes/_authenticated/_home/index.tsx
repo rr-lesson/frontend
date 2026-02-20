@@ -1,4 +1,4 @@
-import type { Class } from "@/api";
+import type { ClassDto } from "@/api";
 import {
   getAllClassesOptions,
   getAllSubjectsOptions,
@@ -59,37 +59,37 @@ function RouteComponent() {
       </div>
 
       <Combobox
-        items={(dataClasses && dataClasses.classes) || []}
-        itemToStringLabel={(item: Class) => item.name}
+        items={(dataClasses && dataClasses.items) || []}
+        itemToStringLabel={(item: ClassDto) => item.data.name}
         value={
           (currentClass &&
             dataClasses &&
-            dataClasses.classes.find((it) => it.id === currentClass)) ||
+            dataClasses.items.find((it) => it.data.id === currentClass)) ||
           null
         }
-        onValueChange={(e) => setCurrentClass(e?.id || null)}
+        onValueChange={(e) => setCurrentClass(e?.data.id || null)}
       >
         <ComboboxInput placeholder="Pilih kelas" />
         <ComboboxContent>
           <ComboboxEmpty>Kelas tidak ditemukan.</ComboboxEmpty>
           <ComboboxList>
-            {(item: Class) => (
-              <ComboboxItem key={"class-item-" + item.id} value={item}>
-                {item.name}
+            {(item: ClassDto) => (
+              <ComboboxItem key={"class-item-" + item.data.id} value={item}>
+                {item.data.name}
               </ComboboxItem>
             )}
           </ComboboxList>
         </ComboboxContent>
       </Combobox>
 
-      <Card>
-        <CardHeader>
+      <Card className="py-4">
+        <CardHeader className="px-4">
           <CardTitle>Siap jadi lebih pintar?</CardTitle>
           <CardDescription>
             Tentukan mata pelajaran dan mulai perjalanan belajarmu.
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-4">
           <div className="grid grid-cols-1">
             {dataSubjects &&
               dataSubjects.subjects.map((item, index) => (
