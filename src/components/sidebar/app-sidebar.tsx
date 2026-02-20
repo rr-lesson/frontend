@@ -1,3 +1,5 @@
+import { userProfileAtom } from "@/stores";
+import { useAtomValue } from "jotai";
 import { Command } from "lucide-react";
 import { AdminSidebarGroup, UserSidebarGroup } from ".";
 import {
@@ -11,6 +13,8 @@ import {
 } from "../ui/sidebar";
 
 export const AppSidebar = () => {
+  const userProfile = useAtomValue(userProfileAtom);
+
   return (
     <>
       <Sidebar>
@@ -31,7 +35,7 @@ export const AppSidebar = () => {
         </SidebarHeader>
         <SidebarContent>
           {/* admin */}
-          <AdminSidebarGroup />
+          {userProfile?.role === "admin" && <AdminSidebarGroup />}
 
           {/* user */}
           <UserSidebarGroup />
