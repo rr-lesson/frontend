@@ -30,7 +30,7 @@ function RouteComponent() {
         questionId: Number(questionId),
       },
       query: {
-        includes: ["user", "subject", "class"],
+        includes: ["user", "subject", "class", "attachments"],
       },
     }),
     enabled: !!questionId,
@@ -86,6 +86,18 @@ function RouteComponent() {
         ref={contentRef}
         dangerouslySetInnerHTML={{ __html: content ?? "" }}
       />
+
+      {dataQuestion && dataQuestion.question.attachments.length > 0 && (
+        <div className="flex items-center gap-2 overflow-auto">
+          {dataQuestion.question.attachments.map((item, index) => (
+            <img
+              key={"attachment-item-" + index}
+              src={item.path}
+              className="size-32 object-cover min-w-32"
+            />
+          ))}
+        </div>
+      )}
 
       {userProfile?.role === "admin" && (
         <div className="flex justify-end">

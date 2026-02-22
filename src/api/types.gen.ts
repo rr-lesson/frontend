@@ -150,7 +150,16 @@ export type Question = {
     user_id: number;
 };
 
+export type QuestionAttachment = {
+    created_at: string;
+    id: number;
+    path: string;
+    question_id: number;
+    updated_at: string;
+};
+
 export type QuestionDto = {
+    attachments: Array<QuestionAttachment>;
     class: Class;
     data: Question;
     subject: Subject;
@@ -504,7 +513,7 @@ export type GetQuestionData = {
         /**
          * includes
          */
-        includes?: Array<'user' | 'subject' | 'class'>;
+        includes?: Array<'user' | 'subject' | 'class' | 'attachments'>;
     };
     url: '/api/v1/questions/{questionId}';
 };
