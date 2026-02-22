@@ -1,3 +1,4 @@
+import type { CreateQuestionReq } from "@/api";
 import {
   createQuestionMutation,
   getAllClassesOptions,
@@ -10,6 +11,7 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -57,6 +59,7 @@ const formSchema = z.object({
   question: z
     .string("Pertanyaan tidak boleh kosong!")
     .min(1, "Pertanyaan tidak boleh kosong!"),
+  files: z.file().array().optional(),
 });
 
 function RouteComponent() {
@@ -120,8 +123,11 @@ function RouteComponent() {
   const onSubmit = (data: z.infer<typeof formSchema>) =>
     mutateCreate({
       body: {
-        subject_id: data.subjectId,
-        question: data.question,
+        body: JSON.stringify({
+          subject_id: data.subjectId,
+          question: data.question,
+        } as CreateQuestionReq),
+        images: data.files,
       },
     });
 
@@ -214,6 +220,30 @@ function RouteComponent() {
                     aria-invalid={fieldState.invalid}
                   />
                 </div>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+
+          <Controller
+            name="files"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel>Berkas Tambahan</FieldLabel>
+                <Input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={(e) => {
+                    const files = e.target.files;
+                    if (files) {
+                      field.onChange(Array.from(files));
+                    }
+                  }}
+                />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}

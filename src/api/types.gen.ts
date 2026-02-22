@@ -211,6 +211,22 @@ export type VideoDetail = {
     video: Video;
 };
 
+export type GetApiV1SchemaHolderData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/_schema-holder';
+};
+
+export type GetApiV1SchemaHolderResponses = {
+    /**
+     * OK
+     */
+    200: CreateQuestionReq;
+};
+
+export type GetApiV1SchemaHolderResponse = GetApiV1SchemaHolderResponses[keyof GetApiV1SchemaHolderResponses];
+
 export type LoginData = {
     /**
      * body
@@ -452,10 +468,16 @@ export type GetAllQuestionsResponses = {
 export type GetAllQuestionsResponse = GetAllQuestionsResponses[keyof GetAllQuestionsResponses];
 
 export type CreateQuestionData = {
-    /**
-     * body
-     */
-    body: CreateQuestionReq;
+    body: {
+        /**
+         * images
+         */
+        images?: Array<unknown>;
+        /**
+         * body
+         */
+        body: string;
+    };
     path?: never;
     query?: never;
     url: '/api/v1/questions';

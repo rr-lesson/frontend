@@ -3,8 +3,56 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { createClass, createLesson, createQuestion, createSubject, createVideo, getAllClasses, getAllLessons, getAllLessonsBySubjectId, getAllLessonWithClassSubject, getAllQuestions, getAllSubjectDetails, getAllSubjects, getAllVideos, getAllVideosByLessonId, getAllVideosWithDetail, getQuestion, getVideoWithDetail, login, logout, type Options, refreshToken, register } from '../sdk.gen';
-import type { CreateClassData, CreateClassResponse, CreateLessonData, CreateLessonResponse, CreateQuestionData, CreateQuestionResponse, CreateSubjectData, CreateSubjectResponse, CreateVideoData, CreateVideoResponse, GetAllClassesData, GetAllClassesResponse, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponse, GetAllLessonsData, GetAllLessonsResponse, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponse, GetAllQuestionsData, GetAllQuestionsResponse, GetAllSubjectDetailsData, GetAllSubjectDetailsResponse, GetAllSubjectsData, GetAllSubjectsResponse, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponse, GetAllVideosData, GetAllVideosResponse, GetAllVideosWithDetailData, GetAllVideosWithDetailResponse, GetQuestionData, GetQuestionResponse, GetVideoWithDetailData, GetVideoWithDetailResponse, LoginData, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RegisterData, RegisterResponse } from '../types.gen';
+import { createClass, createLesson, createQuestion, createSubject, createVideo, getAllClasses, getAllLessons, getAllLessonsBySubjectId, getAllLessonWithClassSubject, getAllQuestions, getAllSubjectDetails, getAllSubjects, getAllVideos, getAllVideosByLessonId, getAllVideosWithDetail, getApiV1SchemaHolder, getQuestion, getVideoWithDetail, login, logout, type Options, refreshToken, register } from '../sdk.gen';
+import type { CreateClassData, CreateClassResponse, CreateLessonData, CreateLessonResponse, CreateQuestionData, CreateQuestionResponse, CreateSubjectData, CreateSubjectResponse, CreateVideoData, CreateVideoResponse, GetAllClassesData, GetAllClassesResponse, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponse, GetAllLessonsData, GetAllLessonsResponse, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponse, GetAllQuestionsData, GetAllQuestionsResponse, GetAllSubjectDetailsData, GetAllSubjectDetailsResponse, GetAllSubjectsData, GetAllSubjectsResponse, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponse, GetAllVideosData, GetAllVideosResponse, GetAllVideosWithDetailData, GetAllVideosWithDetailResponse, GetApiV1SchemaHolderData, GetApiV1SchemaHolderResponse, GetQuestionData, GetQuestionResponse, GetVideoWithDetailData, GetVideoWithDetailResponse, LoginData, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RegisterData, RegisterResponse } from '../types.gen';
+
+export type QueryKey<TOptions extends Options> = [
+    Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
+        _id: string;
+        _infinite?: boolean;
+        tags?: ReadonlyArray<string>;
+    }
+];
+
+const createQueryKey = <TOptions extends Options>(id: string, options?: TOptions, infinite?: boolean, tags?: ReadonlyArray<string>): [
+    QueryKey<TOptions>[0]
+] => {
+    const params: QueryKey<TOptions>[0] = { _id: id, baseUrl: options?.baseUrl || (options?.client ?? client).getConfig().baseUrl } as QueryKey<TOptions>[0];
+    if (infinite) {
+        params._infinite = infinite;
+    }
+    if (tags) {
+        params.tags = tags;
+    }
+    if (options?.body) {
+        params.body = options.body;
+    }
+    if (options?.headers) {
+        params.headers = options.headers;
+    }
+    if (options?.path) {
+        params.path = options.path;
+    }
+    if (options?.query) {
+        params.query = options.query;
+    }
+    return [params];
+};
+
+export const getApiV1SchemaHolderQueryKey = (options?: Options<GetApiV1SchemaHolderData>) => createQueryKey('getApiV1SchemaHolder', options);
+
+export const getApiV1SchemaHolderOptions = (options?: Options<GetApiV1SchemaHolderData>) => queryOptions<GetApiV1SchemaHolderResponse, DefaultError, GetApiV1SchemaHolderResponse, ReturnType<typeof getApiV1SchemaHolderQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getApiV1SchemaHolder({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getApiV1SchemaHolderQueryKey(options)
+});
 
 export const loginMutation = (options?: Partial<Options<LoginData>>): UseMutationOptions<LoginResponse, DefaultError, Options<LoginData>> => {
     const mutationOptions: UseMutationOptions<LoginResponse, DefaultError, Options<LoginData>> = {
@@ -60,39 +108,6 @@ export const registerMutation = (options?: Partial<Options<RegisterData>>): UseM
         }
     };
     return mutationOptions;
-};
-
-export type QueryKey<TOptions extends Options> = [
-    Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
-        _id: string;
-        _infinite?: boolean;
-        tags?: ReadonlyArray<string>;
-    }
-];
-
-const createQueryKey = <TOptions extends Options>(id: string, options?: TOptions, infinite?: boolean, tags?: ReadonlyArray<string>): [
-    QueryKey<TOptions>[0]
-] => {
-    const params: QueryKey<TOptions>[0] = { _id: id, baseUrl: options?.baseUrl || (options?.client ?? client).getConfig().baseUrl } as QueryKey<TOptions>[0];
-    if (infinite) {
-        params._infinite = infinite;
-    }
-    if (tags) {
-        params.tags = tags;
-    }
-    if (options?.body) {
-        params.body = options.body;
-    }
-    if (options?.headers) {
-        params.headers = options.headers;
-    }
-    if (options?.path) {
-        params.path = options.path;
-    }
-    if (options?.query) {
-        params.query = options.query;
-    }
-    return [params];
 };
 
 export const getAllClassesQueryKey = (options?: Options<GetAllClassesData>) => createQueryKey('getAllClasses', options);
