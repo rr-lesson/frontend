@@ -1,4 +1,4 @@
-import { type Class, type Subject } from "@/api";
+import { type Class, type ClassDto, type Subject } from "@/api";
 import {
   createLessonMutation,
   getAllClassesOptions,
@@ -106,18 +106,18 @@ export const CreateLessonDialog = ({
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Kelas</FieldLabel>
                   <Combobox
-                    items={(dataClassess && dataClassess.classes) || []}
-                    itemToStringValue={(item: Class) => String(item.id)}
-                    itemToStringLabel={(item: Class) => item.name}
+                    items={(dataClassess && dataClassess.items) || []}
+                    itemToStringValue={(item: ClassDto) => String(item.data.id)}
+                    itemToStringLabel={(item: ClassDto) => item.data.name}
                     value={
                       (dataClassess &&
-                        dataClassess.classes.find(
-                          (it) => it.id === field.value,
+                        dataClassess.items.find(
+                          (it) => it.data.id === field.value,
                         )) ||
                       null
                     }
                     onValueChange={(e) => {
-                      if (e != null) field.onChange(e.id);
+                      if (e != null) field.onChange(e.data.id);
                     }}
                   >
                     <ComboboxInput

@@ -1,4 +1,4 @@
-import type { Class, Lesson, Subject } from "@/api";
+import type { Class, ClassDto, Lesson, Subject } from "@/api";
 import {
   createVideoMutation,
   getAllClassesOptions,
@@ -107,17 +107,17 @@ function RouteComponent() {
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>Kelas</FieldLabel>
                 <Combobox
-                  items={(dataClassess && dataClassess.classes) || []}
-                  itemToStringLabel={(item: Class) => item.name}
+                  items={(dataClassess && dataClassess.items) || []}
+                  itemToStringLabel={(item: ClassDto) => item.data.name}
                   value={
                     (dataClassess &&
-                      dataClassess.classes.find(
-                        (it) => it.id === field.value,
+                      dataClassess.items.find(
+                        (it) => it.data.id === field.value,
                       )) ||
                     null
                   }
                   onValueChange={(e) => {
-                    if (e != null) field.onChange(e.id);
+                    if (e != null) field.onChange(e.data.id);
                   }}
                 >
                   <ComboboxInput
