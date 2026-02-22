@@ -462,7 +462,7 @@ export type GetAllQuestionsData = {
         /**
          * includes
          */
-        includes?: Array<'user' | 'subject' | 'class'>;
+        includes?: Array<'user' | 'subject' | 'class' | 'attachments'>;
     };
     url: '/api/v1/questions';
 };

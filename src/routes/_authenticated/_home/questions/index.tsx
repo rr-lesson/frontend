@@ -44,7 +44,7 @@ function RouteComponent() {
   const { data: dataQuestions, isLoading: isLoadingQuestions } = useQuery({
     ...getAllQuestionsOptions({
       query: {
-        includes: ["user", "subject", "class"],
+        includes: ["user", "subject", "class", "attachments"],
         keyword: debouncedKeyword,
       },
     }),
@@ -103,16 +103,18 @@ function RouteComponent() {
                     ])}
                   </p>
                 </CardContent>
-                <CardFooter className="flex justify-between items-end px-4">
+                <CardFooter className="flex justify-between items-end px-4 h-full">
                   <div className="space-y-1">
                     <div className="flex items-center text-muted-foreground text-xs gap-2">
                       <CalendarIcon className="size-3" />
                       <p>{format(item.data.created_at, "EEEE, d MMMM yyyy")}</p>
                     </div>
-                    <div className="flex items-center text-muted-foreground text-xs gap-2">
-                      <FilesIcon className="size-3" />
-                      <p>2 gambar disertakan</p>
-                    </div>
+                    {item.attachments.length > 0 && (
+                      <div className="flex items-center text-muted-foreground text-xs gap-2">
+                        <FilesIcon className="size-3" />
+                        <p>{item.attachments.length} gambar disertakan</p>
+                      </div>
+                    )}
                   </div>
                   <Button
                     size={"icon"}
