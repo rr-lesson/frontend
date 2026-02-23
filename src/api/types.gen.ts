@@ -94,6 +94,10 @@ export type GetAllSubjectsRes = {
     subjects: Array<Subject>;
 };
 
+export type GetAllUsersRes = {
+    items: Array<UserDto>;
+};
+
 export type GetAllVideosByLessonIdRes = {
     videos: Array<Video>;
 };
@@ -201,6 +205,10 @@ export type User = {
     password: string;
     role: string;
     updated_at: string;
+};
+
+export type UserDto = {
+    data: User;
 };
 
 export type Video = {
@@ -607,6 +615,31 @@ export type GetAllVideosByLessonIdResponses = {
 };
 
 export type GetAllVideosByLessonIdResponse = GetAllVideosByLessonIdResponses[keyof GetAllVideosByLessonIdResponses];
+
+export type GetAllUsersData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/users';
+};
+
+export type GetAllUsersErrors = {
+    /**
+     * Internal Server Error
+     */
+    500: ErrorRes;
+};
+
+export type GetAllUsersError = GetAllUsersErrors[keyof GetAllUsersErrors];
+
+export type GetAllUsersResponses = {
+    /**
+     * OK
+     */
+    200: GetAllUsersRes;
+};
+
+export type GetAllUsersResponse = GetAllUsersResponses[keyof GetAllUsersResponses];
 
 export type GetAllVideosData = {
     body?: never;

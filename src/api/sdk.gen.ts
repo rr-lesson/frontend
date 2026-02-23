@@ -2,7 +2,7 @@
 
 import { type Client, formDataBodySerializer, type Options as Options2, type TDataShape } from './client';
 import { client } from './client.gen';
-import type { CreateClassData, CreateClassResponses, CreateLessonData, CreateLessonResponses, CreateQuestionData, CreateQuestionResponses, CreateSubjectData, CreateSubjectResponses, CreateVideoData, CreateVideoResponses, GetAllClassesData, GetAllClassesResponses, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponses, GetAllLessonsData, GetAllLessonsResponses, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponses, GetAllQuestionsData, GetAllQuestionsResponses, GetAllSubjectDetailsData, GetAllSubjectDetailsResponses, GetAllSubjectsData, GetAllSubjectsResponses, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponses, GetAllVideosData, GetAllVideosResponses, GetAllVideosWithDetailData, GetAllVideosWithDetailResponses, GetApiV1SchemaHolderData, GetApiV1SchemaHolderResponses, GetQuestionData, GetQuestionResponses, GetVideoWithDetailData, GetVideoWithDetailResponses, LoginData, LoginResponses, LogoutData, LogoutResponses, RefreshTokenData, RefreshTokenErrors, RefreshTokenResponses, RegisterData, RegisterResponses } from './types.gen';
+import type { CreateClassData, CreateClassResponses, CreateLessonData, CreateLessonResponses, CreateQuestionData, CreateQuestionResponses, CreateSubjectData, CreateSubjectResponses, CreateVideoData, CreateVideoResponses, GetAllClassesData, GetAllClassesResponses, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponses, GetAllLessonsData, GetAllLessonsResponses, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponses, GetAllQuestionsData, GetAllQuestionsResponses, GetAllSubjectDetailsData, GetAllSubjectDetailsResponses, GetAllSubjectsData, GetAllSubjectsResponses, GetAllUsersData, GetAllUsersErrors, GetAllUsersResponses, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponses, GetAllVideosData, GetAllVideosResponses, GetAllVideosWithDetailData, GetAllVideosWithDetailResponses, GetApiV1SchemaHolderData, GetApiV1SchemaHolderResponses, GetQuestionData, GetQuestionResponses, GetVideoWithDetailData, GetVideoWithDetailResponses, LoginData, LoginResponses, LogoutData, LogoutResponses, RefreshTokenData, RefreshTokenErrors, RefreshTokenResponses, RegisterData, RegisterResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -112,6 +112,8 @@ export const getAllSubjectDetails = <ThrowOnError extends boolean = false>(optio
  * @deprecated
  */
 export const getAllVideosByLessonId = <ThrowOnError extends boolean = false>(options: Options<GetAllVideosByLessonIdData, ThrowOnError>) => (options.client ?? client).get<GetAllVideosByLessonIdResponses, unknown, ThrowOnError>({ url: '/api/v1/subjects/{subjectId}/lessons/{lessonId}/videos', ...options });
+
+export const getAllUsers = <ThrowOnError extends boolean = false>(options?: Options<GetAllUsersData, ThrowOnError>) => (options?.client ?? client).get<GetAllUsersResponses, GetAllUsersErrors, ThrowOnError>({ url: '/api/v1/users', ...options });
 
 export const getAllVideos = <ThrowOnError extends boolean = false>(options?: Options<GetAllVideosData, ThrowOnError>) => (options?.client ?? client).get<GetAllVideosResponses, unknown, ThrowOnError>({ url: '/api/v1/videos', ...options });
 

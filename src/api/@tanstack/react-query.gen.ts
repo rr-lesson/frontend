@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { createClass, createLesson, createQuestion, createSubject, createVideo, getAllClasses, getAllLessons, getAllLessonsBySubjectId, getAllLessonWithClassSubject, getAllQuestions, getAllSubjectDetails, getAllSubjects, getAllVideos, getAllVideosByLessonId, getAllVideosWithDetail, getApiV1SchemaHolder, getQuestion, getVideoWithDetail, login, logout, type Options, refreshToken, register } from '../sdk.gen';
-import type { CreateClassData, CreateClassResponse, CreateLessonData, CreateLessonResponse, CreateQuestionData, CreateQuestionResponse, CreateSubjectData, CreateSubjectResponse, CreateVideoData, CreateVideoResponse, GetAllClassesData, GetAllClassesResponse, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponse, GetAllLessonsData, GetAllLessonsResponse, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponse, GetAllQuestionsData, GetAllQuestionsResponse, GetAllSubjectDetailsData, GetAllSubjectDetailsResponse, GetAllSubjectsData, GetAllSubjectsResponse, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponse, GetAllVideosData, GetAllVideosResponse, GetAllVideosWithDetailData, GetAllVideosWithDetailResponse, GetApiV1SchemaHolderData, GetApiV1SchemaHolderResponse, GetQuestionData, GetQuestionResponse, GetVideoWithDetailData, GetVideoWithDetailResponse, LoginData, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RegisterData, RegisterResponse } from '../types.gen';
+import { createClass, createLesson, createQuestion, createSubject, createVideo, getAllClasses, getAllLessons, getAllLessonsBySubjectId, getAllLessonWithClassSubject, getAllQuestions, getAllSubjectDetails, getAllSubjects, getAllUsers, getAllVideos, getAllVideosByLessonId, getAllVideosWithDetail, getApiV1SchemaHolder, getQuestion, getVideoWithDetail, login, logout, type Options, refreshToken, register } from '../sdk.gen';
+import type { CreateClassData, CreateClassResponse, CreateLessonData, CreateLessonResponse, CreateQuestionData, CreateQuestionResponse, CreateSubjectData, CreateSubjectResponse, CreateVideoData, CreateVideoResponse, GetAllClassesData, GetAllClassesResponse, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponse, GetAllLessonsData, GetAllLessonsResponse, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponse, GetAllQuestionsData, GetAllQuestionsResponse, GetAllSubjectDetailsData, GetAllSubjectDetailsResponse, GetAllSubjectsData, GetAllSubjectsResponse, GetAllUsersData, GetAllUsersError, GetAllUsersResponse, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponse, GetAllVideosData, GetAllVideosResponse, GetAllVideosWithDetailData, GetAllVideosWithDetailResponse, GetApiV1SchemaHolderData, GetApiV1SchemaHolderResponse, GetQuestionData, GetQuestionResponse, GetVideoWithDetailData, GetVideoWithDetailResponse, LoginData, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RegisterData, RegisterResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -320,6 +320,21 @@ export const getAllVideosByLessonIdOptions = (options: Options<GetAllVideosByLes
         return data;
     },
     queryKey: getAllVideosByLessonIdQueryKey(options)
+});
+
+export const getAllUsersQueryKey = (options?: Options<GetAllUsersData>) => createQueryKey('getAllUsers', options);
+
+export const getAllUsersOptions = (options?: Options<GetAllUsersData>) => queryOptions<GetAllUsersResponse, GetAllUsersError, GetAllUsersResponse, ReturnType<typeof getAllUsersQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getAllUsers({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getAllUsersQueryKey(options)
 });
 
 export const getAllVideosQueryKey = (options?: Options<GetAllVideosData>) => createQueryKey('getAllVideos', options);

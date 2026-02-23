@@ -1,5 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { DatabaseIcon, LayoutDashboardIcon, VideoIcon } from "lucide-react";
+import {
+  DatabaseIcon,
+  LayoutDashboardIcon,
+  UserPenIcon,
+  VideoIcon,
+} from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -39,6 +44,15 @@ export const AdminSidebarGroup = () => {
                 <Link to="/admin/video">
                   <VideoIcon />
                   Video Pembelajaran
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link to="/admin/users">
+                  <UserPenIcon />
+                  Manajemen Pengguna
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

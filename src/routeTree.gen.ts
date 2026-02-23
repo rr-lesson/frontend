@@ -20,6 +20,7 @@ import { Route as UnauthenticatedAuthLoginRouteImport } from './routes/_unauthen
 import { Route as AuthenticatedQuestionsCreateIndexRouteImport } from './routes/_authenticated/questions/create/index'
 import { Route as AuthenticatedQuestionsQuestionIdIndexRouteImport } from './routes/_authenticated/questions/$questionId/index'
 import { Route as AuthenticatedAdminVideoIndexRouteImport } from './routes/_authenticated/admin/video/index'
+import { Route as AuthenticatedAdminUsersIndexRouteImport } from './routes/_authenticated/admin/users/index'
 import { Route as AuthenticatedAdminDataIndexRouteImport } from './routes/_authenticated/admin/data/index'
 import { Route as AuthenticatedHomeSettingsIndexRouteImport } from './routes/_authenticated/_home/settings/index'
 import { Route as AuthenticatedHomeQuestionsIndexRouteImport } from './routes/_authenticated/_home/questions/index'
@@ -86,6 +87,12 @@ const AuthenticatedAdminVideoIndexRoute =
     path: '/admin/video/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedAdminUsersIndexRoute =
+  AuthenticatedAdminUsersIndexRouteImport.update({
+    id: '/admin/users/',
+    path: '/admin/users/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedAdminDataIndexRoute =
   AuthenticatedAdminDataIndexRouteImport.update({
     id: '/admin/data/',
@@ -147,6 +154,7 @@ export interface FileRoutesByFullPath {
   '/questions/': typeof AuthenticatedHomeQuestionsIndexRoute
   '/settings/': typeof AuthenticatedHomeSettingsIndexRoute
   '/admin/data/': typeof AuthenticatedAdminDataIndexRoute
+  '/admin/users/': typeof AuthenticatedAdminUsersIndexRoute
   '/admin/video/': typeof AuthenticatedAdminVideoIndexRoute
   '/questions/$questionId/': typeof AuthenticatedQuestionsQuestionIdIndexRoute
   '/questions/create/': typeof AuthenticatedQuestionsCreateIndexRoute
@@ -165,6 +173,7 @@ export interface FileRoutesByTo {
   '/questions': typeof AuthenticatedHomeQuestionsIndexRoute
   '/settings': typeof AuthenticatedHomeSettingsIndexRoute
   '/admin/data': typeof AuthenticatedAdminDataIndexRoute
+  '/admin/users': typeof AuthenticatedAdminUsersIndexRoute
   '/admin/video': typeof AuthenticatedAdminVideoIndexRoute
   '/questions/$questionId': typeof AuthenticatedQuestionsQuestionIdIndexRoute
   '/questions/create': typeof AuthenticatedQuestionsCreateIndexRoute
@@ -187,6 +196,7 @@ export interface FileRoutesById {
   '/_authenticated/_home/questions/': typeof AuthenticatedHomeQuestionsIndexRoute
   '/_authenticated/_home/settings/': typeof AuthenticatedHomeSettingsIndexRoute
   '/_authenticated/admin/data/': typeof AuthenticatedAdminDataIndexRoute
+  '/_authenticated/admin/users/': typeof AuthenticatedAdminUsersIndexRoute
   '/_authenticated/admin/video/': typeof AuthenticatedAdminVideoIndexRoute
   '/_authenticated/questions/$questionId/': typeof AuthenticatedQuestionsQuestionIdIndexRoute
   '/_authenticated/questions/create/': typeof AuthenticatedQuestionsCreateIndexRoute
@@ -207,6 +217,7 @@ export interface FileRouteTypes {
     | '/questions/'
     | '/settings/'
     | '/admin/data/'
+    | '/admin/users/'
     | '/admin/video/'
     | '/questions/$questionId/'
     | '/questions/create/'
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | '/questions'
     | '/settings'
     | '/admin/data'
+    | '/admin/users'
     | '/admin/video'
     | '/questions/$questionId'
     | '/questions/create'
@@ -246,6 +258,7 @@ export interface FileRouteTypes {
     | '/_authenticated/_home/questions/'
     | '/_authenticated/_home/settings/'
     | '/_authenticated/admin/data/'
+    | '/_authenticated/admin/users/'
     | '/_authenticated/admin/video/'
     | '/_authenticated/questions/$questionId/'
     | '/_authenticated/questions/create/'
@@ -340,6 +353,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminVideoIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/admin/users/': {
+      id: '/_authenticated/admin/users/'
+      path: '/admin/users'
+      fullPath: '/admin/users/'
+      preLoaderRoute: typeof AuthenticatedAdminUsersIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/admin/data/': {
       id: '/_authenticated/admin/data/'
       path: '/admin/data'
@@ -419,6 +439,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedAdminVideoCreateRoute: typeof AuthenticatedAdminVideoCreateRoute
   AuthenticatedAdminDataIndexRoute: typeof AuthenticatedAdminDataIndexRoute
+  AuthenticatedAdminUsersIndexRoute: typeof AuthenticatedAdminUsersIndexRoute
   AuthenticatedAdminVideoIndexRoute: typeof AuthenticatedAdminVideoIndexRoute
   AuthenticatedQuestionsQuestionIdIndexRoute: typeof AuthenticatedQuestionsQuestionIdIndexRoute
   AuthenticatedQuestionsCreateIndexRoute: typeof AuthenticatedQuestionsCreateIndexRoute
@@ -433,6 +454,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedAdminVideoCreateRoute: AuthenticatedAdminVideoCreateRoute,
   AuthenticatedAdminDataIndexRoute: AuthenticatedAdminDataIndexRoute,
+  AuthenticatedAdminUsersIndexRoute: AuthenticatedAdminUsersIndexRoute,
   AuthenticatedAdminVideoIndexRoute: AuthenticatedAdminVideoIndexRoute,
   AuthenticatedQuestionsQuestionIdIndexRoute:
     AuthenticatedQuestionsQuestionIdIndexRoute,
