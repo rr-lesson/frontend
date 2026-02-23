@@ -1,5 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { HomeIcon, MessageCircleQuestionIcon } from "lucide-react";
+import {
+  HomeIcon,
+  MessageCircleQuestionIcon,
+  SettingsIcon,
+} from "lucide-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -32,6 +36,15 @@ export const UserSidebarGroup = () => {
                 <Link to="/questions">
                   <MessageCircleQuestionIcon />
                   Ruang Tanya
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <Link to="/settings">
+                  <SettingsIcon />
+                  Pengaturan
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
