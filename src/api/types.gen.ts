@@ -110,6 +110,10 @@ export type GetAllVideosWithDetailRes = {
     videos: Array<VideoDetail>;
 };
 
+export type GetCurrentUserRes = {
+    user: UserDto;
+};
+
 export type GetQuestionRes = {
     question: QuestionDto;
 };
@@ -195,6 +199,14 @@ export type Subject = {
 export type SubjectDetail = {
     class: Class;
     subject: Subject;
+};
+
+export type UpdateCurrentUserReq = {
+    name: string;
+};
+
+export type UpdateCurrentUserRes = {
+    user: UserDto;
 };
 
 export type User = {
@@ -644,6 +656,59 @@ export type GetAllUsersResponses = {
 };
 
 export type GetAllUsersResponse = GetAllUsersResponses[keyof GetAllUsersResponses];
+
+export type GetCurrentUserData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/users/me';
+};
+
+export type GetCurrentUserErrors = {
+    /**
+     * Internal Server Error
+     */
+    500: ErrorRes;
+};
+
+export type GetCurrentUserError = GetCurrentUserErrors[keyof GetCurrentUserErrors];
+
+export type GetCurrentUserResponses = {
+    /**
+     * OK
+     */
+    200: GetCurrentUserRes;
+};
+
+export type GetCurrentUserResponse = GetCurrentUserResponses[keyof GetCurrentUserResponses];
+
+export type UpdateCurrentUserData = {
+    /**
+     * body
+     */
+    body: UpdateCurrentUserReq;
+    path?: never;
+    query?: never;
+    url: '/api/v1/users/me';
+};
+
+export type UpdateCurrentUserErrors = {
+    /**
+     * Internal Server Error
+     */
+    500: ErrorRes;
+};
+
+export type UpdateCurrentUserError = UpdateCurrentUserErrors[keyof UpdateCurrentUserErrors];
+
+export type UpdateCurrentUserResponses = {
+    /**
+     * OK
+     */
+    200: UpdateCurrentUserRes;
+};
+
+export type UpdateCurrentUserResponse = UpdateCurrentUserResponses[keyof UpdateCurrentUserResponses];
 
 export type GetAllVideosData = {
     body?: never;

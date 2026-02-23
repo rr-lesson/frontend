@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { createClass, createLesson, createQuestion, createSubject, createVideo, getAllClasses, getAllLessons, getAllLessonsBySubjectId, getAllLessonWithClassSubject, getAllQuestions, getAllSubjectDetails, getAllSubjects, getAllUsers, getAllVideos, getAllVideosByLessonId, getAllVideosWithDetail, getApiV1SchemaHolder, getQuestion, getVideoWithDetail, login, logout, type Options, refreshToken, register } from '../sdk.gen';
-import type { CreateClassData, CreateClassResponse, CreateLessonData, CreateLessonResponse, CreateQuestionData, CreateQuestionResponse, CreateSubjectData, CreateSubjectResponse, CreateVideoData, CreateVideoResponse, GetAllClassesData, GetAllClassesResponse, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponse, GetAllLessonsData, GetAllLessonsResponse, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponse, GetAllQuestionsData, GetAllQuestionsResponse, GetAllSubjectDetailsData, GetAllSubjectDetailsResponse, GetAllSubjectsData, GetAllSubjectsResponse, GetAllUsersData, GetAllUsersError, GetAllUsersResponse, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponse, GetAllVideosData, GetAllVideosResponse, GetAllVideosWithDetailData, GetAllVideosWithDetailResponse, GetApiV1SchemaHolderData, GetApiV1SchemaHolderResponse, GetQuestionData, GetQuestionResponse, GetVideoWithDetailData, GetVideoWithDetailResponse, LoginData, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RegisterData, RegisterResponse } from '../types.gen';
+import { createClass, createLesson, createQuestion, createSubject, createVideo, getAllClasses, getAllLessons, getAllLessonsBySubjectId, getAllLessonWithClassSubject, getAllQuestions, getAllSubjectDetails, getAllSubjects, getAllUsers, getAllVideos, getAllVideosByLessonId, getAllVideosWithDetail, getApiV1SchemaHolder, getCurrentUser, getQuestion, getVideoWithDetail, login, logout, type Options, refreshToken, register, updateCurrentUser } from '../sdk.gen';
+import type { CreateClassData, CreateClassResponse, CreateLessonData, CreateLessonResponse, CreateQuestionData, CreateQuestionResponse, CreateSubjectData, CreateSubjectResponse, CreateVideoData, CreateVideoResponse, GetAllClassesData, GetAllClassesResponse, GetAllLessonsBySubjectIdData, GetAllLessonsBySubjectIdResponse, GetAllLessonsData, GetAllLessonsResponse, GetAllLessonWithClassSubjectData, GetAllLessonWithClassSubjectResponse, GetAllQuestionsData, GetAllQuestionsResponse, GetAllSubjectDetailsData, GetAllSubjectDetailsResponse, GetAllSubjectsData, GetAllSubjectsResponse, GetAllUsersData, GetAllUsersError, GetAllUsersResponse, GetAllVideosByLessonIdData, GetAllVideosByLessonIdResponse, GetAllVideosData, GetAllVideosResponse, GetAllVideosWithDetailData, GetAllVideosWithDetailResponse, GetApiV1SchemaHolderData, GetApiV1SchemaHolderResponse, GetCurrentUserData, GetCurrentUserError, GetCurrentUserResponse, GetQuestionData, GetQuestionResponse, GetVideoWithDetailData, GetVideoWithDetailResponse, LoginData, LoginResponse, LogoutData, LogoutResponse, RefreshTokenData, RefreshTokenError, RefreshTokenResponse, RegisterData, RegisterResponse, UpdateCurrentUserData, UpdateCurrentUserError, UpdateCurrentUserResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -336,6 +336,35 @@ export const getAllUsersOptions = (options?: Options<GetAllUsersData>) => queryO
     },
     queryKey: getAllUsersQueryKey(options)
 });
+
+export const getCurrentUserQueryKey = (options?: Options<GetCurrentUserData>) => createQueryKey('getCurrentUser', options);
+
+export const getCurrentUserOptions = (options?: Options<GetCurrentUserData>) => queryOptions<GetCurrentUserResponse, GetCurrentUserError, GetCurrentUserResponse, ReturnType<typeof getCurrentUserQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await getCurrentUser({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: getCurrentUserQueryKey(options)
+});
+
+export const updateCurrentUserMutation = (options?: Partial<Options<UpdateCurrentUserData>>): UseMutationOptions<UpdateCurrentUserResponse, UpdateCurrentUserError, Options<UpdateCurrentUserData>> => {
+    const mutationOptions: UseMutationOptions<UpdateCurrentUserResponse, UpdateCurrentUserError, Options<UpdateCurrentUserData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await updateCurrentUser({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
 
 export const getAllVideosQueryKey = (options?: Options<GetAllVideosData>) => createQueryKey('getAllVideos', options);
 
