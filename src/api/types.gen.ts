@@ -471,6 +471,10 @@ export type GetAllQuestionsData = {
          * includes
          */
         includes?: Array<'user' | 'subject' | 'class' | 'attachments'>;
+        /**
+         * owned
+         */
+        owned?: boolean;
     };
     url: '/api/v1/questions';
 };

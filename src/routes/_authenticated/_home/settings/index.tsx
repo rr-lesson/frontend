@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { jotaiStore, navbarTitleAtom, userProfileAtom } from "@/stores";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useAtom } from "jotai";
 import { ChevronRightIcon, UserIcon } from "lucide-react";
 import { useState } from "react";
@@ -27,7 +27,7 @@ function RouteComponent() {
 
   return (
     <>
-      <div className="py-4 space-y-4">
+      <div className="py-4 space-y-4 max-w-xl">
         {/* profile */}
         <div className="flex items-center gap-4">
           <div className="bg-primary/10 rounded-full size-16 flex items-center justify-center">
@@ -41,13 +41,22 @@ function RouteComponent() {
           </div>
         </div>
 
+        <div>
+          <Link to="/me/questions">
+            <Card className="py-4 shadow-none">
+              <CardContent className="px-4 flex justify-between">
+                <p>Pertanyaan saya</p>
+                <ChevronRightIcon className="size-5" />
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
+
         <div className="space-y-2">
           <p className="font-medium text-sm text-primary">Aplikasi</p>
           <div className="space-y-1">
             <Card
-              className={cn(
-                "py-4 shadow-none active:scale-95 transition-all",
-              )}
+              className={cn("py-4 shadow-none")}
               onClick={() => {
                 setTheme(theme === "dark" ? "light" : "dark");
               }}
@@ -55,7 +64,6 @@ function RouteComponent() {
               <CardContent className="px-4 flex items-center justify-between">
                 <p className="text-base">Gunakan tema gelap</p>
                 <Switch
-                  className="active:scale-95 transition-all"
                   checked={theme === "dark"}
                   onCheckedChange={(checked) =>
                     setTheme(checked ? "dark" : "light")
@@ -66,10 +74,17 @@ function RouteComponent() {
           </div>
         </div>
 
-        <div className="space-y-2">
-          <p className="font-medium text-sm text-primary">Akun</p>
+        <div className="space-y-0.5">
+          <Link to="/me/profile" className="block">
+            <Card className="py-4 shadow-none rounded-b-sm">
+              <CardContent className="px-4 flex justify-between">
+                <p>Ubah profil</p>
+                <ChevronRightIcon className="size-5" />
+              </CardContent>
+            </Card>
+          </Link>
           <Card
-            className="py-4 shadow-none active:scale-95 transition-all"
+            className="py-4 shadow-none rounded-t-sm"
             onClick={() => setLogoutDialog({ open: true })}
           >
             <CardContent className="px-4 flex items-center justify-between">

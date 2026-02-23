@@ -374,6 +374,12 @@
                         "description": "includes",
                         "name": "includes",
                         "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "owned",
+                        "name": "owned",
+                        "in": "query"
                     }
                 ],
                 "responses": {
