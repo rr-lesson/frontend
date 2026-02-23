@@ -19,13 +19,13 @@ import { Route as UnauthenticatedAuthRegisterRouteImport } from './routes/_unaut
 import { Route as UnauthenticatedAuthLoginRouteImport } from './routes/_unauthenticated/auth/login'
 import { Route as AuthenticatedMeQuestionsRouteImport } from './routes/_authenticated/me/questions'
 import { Route as AuthenticatedMeProfileRouteImport } from './routes/_authenticated/me/profile'
+import { Route as AuthenticatedHomeSettingsRouteImport } from './routes/_authenticated/_home/settings'
+import { Route as AuthenticatedHomeQuestionsRouteImport } from './routes/_authenticated/_home/questions'
 import { Route as AuthenticatedQuestionsCreateIndexRouteImport } from './routes/_authenticated/questions/create/index'
 import { Route as AuthenticatedQuestionsQuestionIdIndexRouteImport } from './routes/_authenticated/questions/$questionId/index'
 import { Route as AuthenticatedAdminVideoIndexRouteImport } from './routes/_authenticated/admin/video/index'
 import { Route as AuthenticatedAdminUsersIndexRouteImport } from './routes/_authenticated/admin/users/index'
 import { Route as AuthenticatedAdminDataIndexRouteImport } from './routes/_authenticated/admin/data/index'
-import { Route as AuthenticatedHomeSettingsIndexRouteImport } from './routes/_authenticated/_home/settings/index'
-import { Route as AuthenticatedHomeQuestionsIndexRouteImport } from './routes/_authenticated/_home/questions/index'
 import { Route as AuthenticatedAdminVideoCreateRouteImport } from './routes/_authenticated/admin/video/create'
 import { Route as AuthenticatedSubjectsSubjectIdLessonsIndexRouteImport } from './routes/_authenticated/subjects/$subjectId/lessons/index'
 import { Route as AuthenticatedAdminVideoVideoIdIndexRouteImport } from './routes/_authenticated/admin/video/$videoId.index'
@@ -82,6 +82,18 @@ const AuthenticatedMeProfileRoute = AuthenticatedMeProfileRouteImport.update({
   path: '/me/profile',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedHomeSettingsRoute =
+  AuthenticatedHomeSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => AuthenticatedHomeRoute,
+  } as any)
+const AuthenticatedHomeQuestionsRoute =
+  AuthenticatedHomeQuestionsRouteImport.update({
+    id: '/questions',
+    path: '/questions',
+    getParentRoute: () => AuthenticatedHomeRoute,
+  } as any)
 const AuthenticatedQuestionsCreateIndexRoute =
   AuthenticatedQuestionsCreateIndexRouteImport.update({
     id: '/questions/create/',
@@ -111,18 +123,6 @@ const AuthenticatedAdminDataIndexRoute =
     id: '/admin/data/',
     path: '/admin/data/',
     getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedHomeSettingsIndexRoute =
-  AuthenticatedHomeSettingsIndexRouteImport.update({
-    id: '/settings/',
-    path: '/settings/',
-    getParentRoute: () => AuthenticatedHomeRoute,
-  } as any)
-const AuthenticatedHomeQuestionsIndexRoute =
-  AuthenticatedHomeQuestionsIndexRouteImport.update({
-    id: '/questions/',
-    path: '/questions/',
-    getParentRoute: () => AuthenticatedHomeRoute,
   } as any)
 const AuthenticatedAdminVideoCreateRoute =
   AuthenticatedAdminVideoCreateRouteImport.update({
@@ -160,14 +160,14 @@ const AuthenticatedSubjectsSubjectIdLessonsLessonIdVideosVideoIdIndexRoute =
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedHomeIndexRoute
   '/test': typeof TestRoute
+  '/questions': typeof AuthenticatedHomeQuestionsRoute
+  '/settings': typeof AuthenticatedHomeSettingsRoute
   '/me/profile': typeof AuthenticatedMeProfileRoute
   '/me/questions': typeof AuthenticatedMeQuestionsRoute
   '/auth/login': typeof UnauthenticatedAuthLoginRoute
   '/auth/register': typeof UnauthenticatedAuthRegisterRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/video/create': typeof AuthenticatedAdminVideoCreateRoute
-  '/questions/': typeof AuthenticatedHomeQuestionsIndexRoute
-  '/settings/': typeof AuthenticatedHomeSettingsIndexRoute
   '/admin/data/': typeof AuthenticatedAdminDataIndexRoute
   '/admin/users/': typeof AuthenticatedAdminUsersIndexRoute
   '/admin/video/': typeof AuthenticatedAdminVideoIndexRoute
@@ -181,14 +181,14 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof AuthenticatedHomeIndexRoute
   '/test': typeof TestRoute
+  '/questions': typeof AuthenticatedHomeQuestionsRoute
+  '/settings': typeof AuthenticatedHomeSettingsRoute
   '/me/profile': typeof AuthenticatedMeProfileRoute
   '/me/questions': typeof AuthenticatedMeQuestionsRoute
   '/auth/login': typeof UnauthenticatedAuthLoginRoute
   '/auth/register': typeof UnauthenticatedAuthRegisterRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/video/create': typeof AuthenticatedAdminVideoCreateRoute
-  '/questions': typeof AuthenticatedHomeQuestionsIndexRoute
-  '/settings': typeof AuthenticatedHomeSettingsIndexRoute
   '/admin/data': typeof AuthenticatedAdminDataIndexRoute
   '/admin/users': typeof AuthenticatedAdminUsersIndexRoute
   '/admin/video': typeof AuthenticatedAdminVideoIndexRoute
@@ -205,6 +205,8 @@ export interface FileRoutesById {
   '/_unauthenticated': typeof UnauthenticatedRouteWithChildren
   '/test': typeof TestRoute
   '/_authenticated/_home': typeof AuthenticatedHomeRouteWithChildren
+  '/_authenticated/_home/questions': typeof AuthenticatedHomeQuestionsRoute
+  '/_authenticated/_home/settings': typeof AuthenticatedHomeSettingsRoute
   '/_authenticated/me/profile': typeof AuthenticatedMeProfileRoute
   '/_authenticated/me/questions': typeof AuthenticatedMeQuestionsRoute
   '/_unauthenticated/auth/login': typeof UnauthenticatedAuthLoginRoute
@@ -212,8 +214,6 @@ export interface FileRoutesById {
   '/_authenticated/_home/': typeof AuthenticatedHomeIndexRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/video/create': typeof AuthenticatedAdminVideoCreateRoute
-  '/_authenticated/_home/questions/': typeof AuthenticatedHomeQuestionsIndexRoute
-  '/_authenticated/_home/settings/': typeof AuthenticatedHomeSettingsIndexRoute
   '/_authenticated/admin/data/': typeof AuthenticatedAdminDataIndexRoute
   '/_authenticated/admin/users/': typeof AuthenticatedAdminUsersIndexRoute
   '/_authenticated/admin/video/': typeof AuthenticatedAdminVideoIndexRoute
@@ -229,14 +229,14 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/test'
+    | '/questions'
+    | '/settings'
     | '/me/profile'
     | '/me/questions'
     | '/auth/login'
     | '/auth/register'
     | '/admin/'
     | '/admin/video/create'
-    | '/questions/'
-    | '/settings/'
     | '/admin/data/'
     | '/admin/users/'
     | '/admin/video/'
@@ -250,14 +250,14 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/test'
+    | '/questions'
+    | '/settings'
     | '/me/profile'
     | '/me/questions'
     | '/auth/login'
     | '/auth/register'
     | '/admin'
     | '/admin/video/create'
-    | '/questions'
-    | '/settings'
     | '/admin/data'
     | '/admin/users'
     | '/admin/video'
@@ -273,6 +273,8 @@ export interface FileRouteTypes {
     | '/_unauthenticated'
     | '/test'
     | '/_authenticated/_home'
+    | '/_authenticated/_home/questions'
+    | '/_authenticated/_home/settings'
     | '/_authenticated/me/profile'
     | '/_authenticated/me/questions'
     | '/_unauthenticated/auth/login'
@@ -280,8 +282,6 @@ export interface FileRouteTypes {
     | '/_authenticated/_home/'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/video/create'
-    | '/_authenticated/_home/questions/'
-    | '/_authenticated/_home/settings/'
     | '/_authenticated/admin/data/'
     | '/_authenticated/admin/users/'
     | '/_authenticated/admin/video/'
@@ -371,6 +371,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMeProfileRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/_home/settings': {
+      id: '/_authenticated/_home/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedHomeSettingsRouteImport
+      parentRoute: typeof AuthenticatedHomeRoute
+    }
+    '/_authenticated/_home/questions': {
+      id: '/_authenticated/_home/questions'
+      path: '/questions'
+      fullPath: '/questions'
+      preLoaderRoute: typeof AuthenticatedHomeQuestionsRouteImport
+      parentRoute: typeof AuthenticatedHomeRoute
+    }
     '/_authenticated/questions/create/': {
       id: '/_authenticated/questions/create/'
       path: '/questions/create'
@@ -405,20 +419,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/data/'
       preLoaderRoute: typeof AuthenticatedAdminDataIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/_home/settings/': {
-      id: '/_authenticated/_home/settings/'
-      path: '/settings'
-      fullPath: '/settings/'
-      preLoaderRoute: typeof AuthenticatedHomeSettingsIndexRouteImport
-      parentRoute: typeof AuthenticatedHomeRoute
-    }
-    '/_authenticated/_home/questions/': {
-      id: '/_authenticated/_home/questions/'
-      path: '/questions'
-      fullPath: '/questions/'
-      preLoaderRoute: typeof AuthenticatedHomeQuestionsIndexRouteImport
-      parentRoute: typeof AuthenticatedHomeRoute
     }
     '/_authenticated/admin/video/create': {
       id: '/_authenticated/admin/video/create'
@@ -459,15 +459,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedHomeRouteChildren {
+  AuthenticatedHomeQuestionsRoute: typeof AuthenticatedHomeQuestionsRoute
+  AuthenticatedHomeSettingsRoute: typeof AuthenticatedHomeSettingsRoute
   AuthenticatedHomeIndexRoute: typeof AuthenticatedHomeIndexRoute
-  AuthenticatedHomeQuestionsIndexRoute: typeof AuthenticatedHomeQuestionsIndexRoute
-  AuthenticatedHomeSettingsIndexRoute: typeof AuthenticatedHomeSettingsIndexRoute
 }
 
 const AuthenticatedHomeRouteChildren: AuthenticatedHomeRouteChildren = {
+  AuthenticatedHomeQuestionsRoute: AuthenticatedHomeQuestionsRoute,
+  AuthenticatedHomeSettingsRoute: AuthenticatedHomeSettingsRoute,
   AuthenticatedHomeIndexRoute: AuthenticatedHomeIndexRoute,
-  AuthenticatedHomeQuestionsIndexRoute: AuthenticatedHomeQuestionsIndexRoute,
-  AuthenticatedHomeSettingsIndexRoute: AuthenticatedHomeSettingsIndexRoute,
 }
 
 const AuthenticatedHomeRouteWithChildren =

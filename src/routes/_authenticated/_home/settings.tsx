@@ -9,7 +9,7 @@ import { useAtom } from "jotai";
 import { ChevronRightIcon, UserIcon } from "lucide-react";
 import { useState } from "react";
 
-export const Route = createFileRoute("/_authenticated/_home/settings/")({
+export const Route = createFileRoute("/_authenticated/_home/settings")({
   component: RouteComponent,
   onEnter: () => {
     jotaiStore.set(navbarTitleAtom, "Pengaturan");
@@ -53,7 +53,6 @@ function RouteComponent() {
         </div>
 
         <div className="space-y-2">
-          <p className="font-medium text-sm text-primary">Aplikasi</p>
           <div className="space-y-1">
             <Card
               className={cn("py-4 shadow-none")}

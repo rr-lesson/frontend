@@ -29,7 +29,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-export const Route = createFileRoute("/_authenticated/_home/questions/")({
+export const Route = createFileRoute("/_authenticated/_home/questions")({
   component: RouteComponent,
   onEnter: () => {
     jotaiStore.set(navbarTitleAtom, "Ruang Tanya");
