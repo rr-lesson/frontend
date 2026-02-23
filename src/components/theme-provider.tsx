@@ -42,10 +42,13 @@ export function ThemeProvider({
         : "light";
 
       root.classList.add(systemTheme);
+      setThemeColor(THEME_COLORS[systemTheme]);
+
       return;
     }
 
     root.classList.add(theme);
+    setThemeColor(THEME_COLORS[theme]);
   }, [theme]);
 
   const value = {
@@ -71,3 +74,20 @@ export const useTheme = () => {
 
   return context;
 };
+
+const THEME_COLORS = {
+  light: "#ffffff",
+  dark: "#09090b",
+};
+
+function setThemeColor(color: string) {
+  let meta = document.querySelector("meta[name='theme-color']");
+
+  if (!meta) {
+    meta = document.createElement("meta");
+    meta.setAttribute("name", "theme-color");
+    document.head.appendChild(meta);
+  }
+
+  meta.setAttribute("content", color);
+}
