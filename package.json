@@ -15,6 +15,7 @@
     "@capacitor/core": "^8.1.0",
     "@capacitor/status-bar": "^8.0.1",
     "@capawesome/capacitor-live-update": "^8.1.0",
+    "@dotmind/react-use-pwa": "^1.0.4",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-dialog": "^1.1.15",

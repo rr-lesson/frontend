@@ -4,8 +4,10 @@ import viteReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
+// import basicSsl from "@vitejs/plugin-basic-ssl";
 import { fileURLToPath, URL } from "node:url";
 import { VitePWA } from "vite-plugin-pwa";
+// import mkcert from "vite-plugin-mkcert";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -19,6 +21,9 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
+      devOptions: {
+        enabled: true,
+      },
       manifest: {
         name: "BisaBimbel",
         short_name: "BisaBimbel",
@@ -478,6 +483,8 @@ export default defineConfig({
         ],
       },
     }),
+    // basicSsl(),
+    // mkcert(),
   ],
   resolve: {
     alias: {

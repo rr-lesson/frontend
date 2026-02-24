@@ -9,15 +9,16 @@ import { Provider } from "jotai";
 const queryClient = new QueryClient();
 
 export const Route = createRootRoute({
-  component: () => (
-    <>
-      <QueryClientProvider client={queryClient}>
-        <Provider store={jotaiStore}>
-          <ThemeProvider defaultTheme="light">
-            <Outlet />
-          </ThemeProvider>
-        </Provider>
-        {/* <TanStackDevtools
+  component: () => {
+    return (
+      <>
+        <QueryClientProvider client={queryClient}>
+          <Provider store={jotaiStore}>
+            <ThemeProvider defaultTheme="light">
+              <Outlet />
+            </ThemeProvider>
+          </Provider>
+          {/* <TanStackDevtools
           config={{
             position: "bottom-right",
           }}
@@ -28,7 +29,8 @@ export const Route = createRootRoute({
             },
           ]}
         /> */}
-      </QueryClientProvider>
-    </>
-  ),
+        </QueryClientProvider>
+      </>
+    );
+  },
 });
