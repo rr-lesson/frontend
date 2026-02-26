@@ -5,12 +5,12 @@ import ReactDOM from "react-dom/client";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 
-import { App as CapacitorApp } from "@capacitor/app";
-import { Capacitor } from "@capacitor/core";
+// import { App as CapacitorApp } from "@capacitor/app";
+// import { Capacitor } from "@capacitor/core";
 import { setDefaultOptions } from "date-fns";
 import { id } from "date-fns/locale";
 import { client } from "./api/client.gen.ts";
-import { checkForOtaUpdates } from "./lib/ota-update.ts";
+// import { checkForOtaUpdates } from "./lib/ota-update.ts";
 import reportWebVitals from "./reportWebVitals.ts";
 import "./styles.css";
 
@@ -55,23 +55,23 @@ if (rootElement && !rootElement.innerHTML) {
 reportWebVitals();
 
 // capacitor js
-CapacitorApp.addListener("backButton", ({ canGoBack }) => {
-  if (canGoBack) {
-    router.history.back();
-  } else {
-    CapacitorApp.exitApp();
-  }
-});
+// CapacitorApp.addListener("backButton", ({ canGoBack }) => {
+//   if (canGoBack) {
+//     router.history.back();
+//   } else {
+//     CapacitorApp.exitApp();
+//   }
+// });
 
-const otaUpdates = async () => {
-  if (Capacitor.isNativePlatform()) {
-    console.log("Running on native platform, checking for OTA updates...");
-    try {
-      await checkForOtaUpdates();
-    } catch (e) {
-      console.error("Live update error:", e);
-    }
-  }
-};
+// const otaUpdates = async () => {
+//   if (Capacitor.isNativePlatform()) {
+//     console.log("Running on native platform, checking for OTA updates...");
+//     try {
+//       await checkForOtaUpdates();
+//     } catch (e) {
+//       console.error("Live update error:", e);
+//     }
+//   }
+// };
 
-otaUpdates();
+// otaUpdates();

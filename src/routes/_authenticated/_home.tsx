@@ -62,6 +62,7 @@ function RouteComponent() {
                   isActive && "bg-primary/10",
                 )}
                 replace
+                viewTransition={false}
               >
                 <span
                   className={clsx(
