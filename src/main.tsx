@@ -1,9 +1,8 @@
-import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 
 // Import the generated route tree
-import { routeTree } from "./routeTree.gen";
 
 // import { App as CapacitorApp } from "@capacitor/app";
 // import { Capacitor } from "@capacitor/core";
@@ -11,6 +10,7 @@ import { setDefaultOptions } from "date-fns";
 import { id } from "date-fns/locale";
 import { client } from "./api/client.gen.ts";
 // import { checkForOtaUpdates } from "./lib/ota-update.ts";
+import { router } from "./lib/router.ts";
 import reportWebVitals from "./reportWebVitals.ts";
 import "./styles.css";
 
@@ -18,17 +18,6 @@ setDefaultOptions({ locale: id });
 client.setConfig({
   baseUrl: import.meta.env.VITE_API_BASE_URL,
   credentials: "include",
-});
-
-// Create a new router instance
-const router = createRouter({
-  routeTree,
-  context: {},
-  defaultPreload: "intent",
-  scrollRestoration: true,
-  defaultStructuralSharing: true,
-  defaultPreloadStaleTime: 0,
-  defaultViewTransition: true,
 });
 
 // Register the router instance for type safety

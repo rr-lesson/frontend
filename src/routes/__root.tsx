@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { router } from "@/lib/router";
 import { jotaiStore } from "@/stores";
 // import { TanStackDevtools } from "@tanstack/react-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -10,7 +11,7 @@ import {
 } from "@tanstack/react-router";
 // import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { Provider } from "jotai";
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 const queryClient = new QueryClient();
 
@@ -23,26 +24,32 @@ export const Route = createRootRoute({
     } = useRouterState();
 
     const prevIndexRef = useRef<number | null>(null);
+    const hasMountedRef = useRef(false);
     const isMobile = useIsMobile();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
+      if (!hasMountedRef.current) {
+        prevIndexRef.current = index;
+        hasMountedRef.current = true;
+
+        router.update({ defaultViewTransition: true });
+        return;
+      }
+
       if (!isMobile) {
         document.documentElement.removeAttribute("data-nav");
         prevIndexRef.current = index;
         return;
       }
 
-      if (prevIndexRef.current === null) {
-        prevIndexRef.current = index;
-        return;
-      }
-
-      const direction = index > prevIndexRef.current ? "forward" : "back";
+      const direction =
+        index > (prevIndexRef.current ?? 0) ? "forward" : "back";
 
       document.documentElement.dataset.nav = direction;
-
       prevIndexRef.current = index;
     }, [index, isMobile]);
+
+    useEffect(() => {}, [index, isMobile]);
 
     return (
       <>
