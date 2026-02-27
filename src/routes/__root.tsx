@@ -2,16 +2,14 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { router } from "@/lib/router";
 import { jotaiStore } from "@/stores";
-// import { TanStackDevtools } from "@tanstack/react-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   createRootRoute,
   useRouterState,
 } from "@tanstack/react-router";
-// import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { Provider } from "jotai";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
 const queryClient = new QueryClient();
 
@@ -49,8 +47,6 @@ export const Route = createRootRoute({
       prevIndexRef.current = index;
     }, [index, isMobile]);
 
-    useEffect(() => {}, [index, isMobile]);
-
     return (
       <>
         <QueryClientProvider client={queryClient}>
@@ -59,17 +55,6 @@ export const Route = createRootRoute({
               <Outlet />
             </ThemeProvider>
           </Provider>
-          {/* <TanStackDevtools
-          config={{
-            position: "bottom-right",
-          }}
-          plugins={[
-            {
-              name: "Tanstack Router",
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-          ]}
-        /> */}
         </QueryClientProvider>
       </>
     );

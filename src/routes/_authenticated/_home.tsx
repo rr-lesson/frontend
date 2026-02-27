@@ -63,6 +63,12 @@ function RouteComponent() {
                 )}
                 replace
                 viewTransition={false}
+                onClick={(e) => {
+                  if (isActive) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }
+                }}
               >
                 <span
                   className={clsx(
